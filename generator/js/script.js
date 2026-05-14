@@ -32,7 +32,6 @@ function changeLocale(locale) {
 
 function i18nInit() {
   i18next
-    .use(i18nextBrowserLanguageDetector)
     .init({
       debug: false,
       fallbackLng: 'hr',
