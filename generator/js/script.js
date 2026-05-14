@@ -34,7 +34,7 @@ function i18nInit() {
   i18next
     .use(i18nextBrowserLanguageDetector)
     .init({
-      debug: true,
+      debug: false,
       fallbackLng: 'hr',
       supportedLngs: ['en', 'hr'],
       load: 'languageOnly',
@@ -58,9 +58,13 @@ function galleryInit() {
   GLightbox({
     selector: '.glightbox',
     touchNavigation: true,
-    loop: true,
-    zoomable: true,
-    autoplayVideos: true
+    loop: false,
+    zoomable: false,
+    autoplayVideos: false,
+    openEffect: 'none',
+    closeEffect: 'none',
+    slideEffect: 'none',
+    preload: false
   });
 }
 
