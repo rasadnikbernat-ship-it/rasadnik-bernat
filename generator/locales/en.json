@@ -1,0 +1,21 @@
+{
+  "header": "Let's create together",
+  "intro": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form by injected humour, or randomised words which don't look even slightly believable.",
+  "nav": {
+    "products": "Plants",
+    "services": "Services",
+    "about": "About Us",
+    "gallery": "Gallery",
+    "contact": "Contact"
+  },
+  "product": {
+    "details": "Details",
+    "priceOnRequest": "Price on request"
+  },
+  "carousel" : {
+    "control": {
+      "prev": "Previous",
+      "next": "Next"
+    }
+  }
+}

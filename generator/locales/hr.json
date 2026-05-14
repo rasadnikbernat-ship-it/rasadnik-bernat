@@ -1,0 +1,21 @@
+{
+  "header": "Stvarajmo zajedno",
+  "intro": "Rasadnik Bernat nudi kvalitetne sadnice hrasta lužnjaka, kitnjaka, crvenog hrasta i pitomog kestena te profesionalne usluge pošumljavanja na području Hrvatske.",
+  "nav": {
+    "products": "Sadnice",
+    "services": "Usluge",
+    "about": "O nama",
+    "gallery": "Galerija",
+    "contact": "Kontakt"
+  },
+  "product": {
+    "details": "Opširnije",
+    "priceOnRequest": "Cijena na upit"
+  },
+  "carousel": {
+    "control": {
+      "prev": "Prethodna",
+      "next": "Sljedeća"
+    }
+  }
+}

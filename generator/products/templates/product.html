@@ -1,0 +1,45 @@
+<div class="col-md-3 col-sm-4 col-6 product">
+  <div class="card box-shadow h-100 product-card" data-bs-toggle="modal" data-bs-target="#modal-product-{{id}}">
+    <img loading="lazy" class="card-img-top" alt="{{imageTopAlt}}" src="{{imageTop}}">
+    <div class="card-body">
+      <h4 class="card-text" data-i18n="{{id}}.name">{{name}}</h4>
+      {{price.html}}
+      <button type="button" class="btn btn-secondary btn-product-details" data-i18n="product.details" data-bs-toggle="modal" data-bs-target="#modal-product-{{id}}">Opširnije</button>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-product-{{id}}" tabindex="-1" aria-labelledby="modal-product-{{id}}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modal-product-{{id}}Label" data-i18n="{{id}}.name">{{name}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="carousel-product-{{id}}" class="carousel carousel-dark slide">
+            <div class="carousel-indicators">
+              {{carouselButtons}}
+            </div>
+            <div class="carousel-inner">
+              {{carouselItems}}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-product-{{id}}" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden" data-i18n="carousel.control.prev">Prethodna</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-product-{{id}}" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden" data-i18n="carousel.control.next">Sljedeća</span>
+            </button>
+          </div>
+          <div class="preview-product-description" data-i18n="{{id}}.description">{{description}}</div>
+        </div>
+        <div class="modal-footer preview-product-footer">
+           {{price.html}}
+        </div>
+        <div class="modal-footer preview-product-footer preview-product-footer-closeBtn" data-bs-dismiss="modal">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
