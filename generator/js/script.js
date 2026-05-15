@@ -78,9 +78,21 @@ function navbarInit() {
     });
 }
 
+function cookiesInit() {
+  if (!localStorage.getItem('cookiesAccepted')) {
+    document.getElementById('cookie-banner').style.display = 'block';
+  }
+
+  document.getElementById('cookie-accept').addEventListener('click', function () {
+    localStorage.setItem('cookiesAccepted', 'true');
+    document.getElementById('cookie-banner').style.display = 'none';
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   i18nInit();
   carouselInit();
   galleryInit();
   navbarInit();
+  cookiesInit();
 });
