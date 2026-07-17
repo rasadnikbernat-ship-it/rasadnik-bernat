@@ -20,21 +20,23 @@ async function mapGalleryTemplate(html) {
     initThumbsDir(),
   ]);
   const galleryItems = [];
-  const [imgFileNames, vidFileNames] = await Promise.all([
-    readdir(imagesDir),
-    readdir(videosDir)
-  ]);
+  const imgFileNames = await readdir(imagesDir);
   imgFileNames.forEach((fileName, index) => {
     galleryItems.push(getImgGalleryItem(galleryItemTemplate, getImagePath(fileName), fileName));
   });
-  for (const fileName of vidFileNames) {
-    try {
-      const thumbName = `${uuidv4()}.jpg`;
-      await generateThumbnail(path.join(videosDir, fileName), path.join(thumbsDir, thumbName));
-      galleryItems.push(getVidGalleryItem(galleryItemTemplate, getVideoPath(fileName), getThumbPath(thumbName), fileName));
-    } catch (error) {
-      console.error(`Skiping video ${fileName}: ${error}`);
+  try {
+    videosDir = await readdir(videosDir);
+    for (const fileName of vidFileNames) {
+      try {
+        const thumbName = `${uuidv4()}.jpg`;
+        await generateThumbnail(path.join(videosDir, fileName), path.join(thumbsDir, thumbName));
+        galleryItems.push(getVidGalleryItem(galleryItemTemplate, getVideoPath(fileName), getThumbPath(thumbName), fileName));
+      } catch (error) {
+        console.error(`Skiping video ${fileName}: ${error}`);
+      }
     }
+  } catch (error) {
+    //console.error(error);
   }
   const galleryHTML = galleryTemplate
     .replaceAll('{{items}}', galleryItems.join('\n'));

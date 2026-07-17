@@ -44,7 +44,12 @@ async function getProductHTML(item, htmlTemplates) {
   const { productCarouselSlideBtnTemplate, productCarouselItemTemplate, productTemplate, priceOnReqTemplate, priceTemplate } = htmlTemplates;
   const carouselButtons = [];
   const carouselItems = [];
-  const fileNames = await readdir(`${imagesRootDir}/${item.imageDir}`);
+  let fileNames = [];
+  try {
+    fileNames = await readdir(`${imagesRootDir}/${item.imageDir}`);
+  } catch(err) {
+    //console.error(err);
+  }
   let imageTop = {};
   if (fileNames.length > 0) {
     fileNames.forEach((fileName, index) => {
