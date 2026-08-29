@@ -20,51 +20,51 @@ module.exports={
     }
   },
   "cookie-banner": "This website uses essential cookies and Google Maps to ensure proper functionality and display of content. By continuing to use this site, you agree to the use of cookies.",
-  "d131e434-e357-4549-895d-8e6f142cdc13": {
+  "ef2f420a-8736-49f0-a5b8-56bb6b091ad6": {
     "name": "Sweet chestnut (Castanea sativa), 40-70cm",
     "description": "Seedling information:\n- Seedling height 40-70 cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n- Seedlings with a plant passport and health certificate\n\nSpecies description:\n- Cultivation form: tree, with a lush, large crown.\n- Fruit: edible\n- Yield: abundant, regular\n- Ripening time: October (1-10)\n- Fertilization: pollinator required\n- Soil requirements: pH value from 4.5 to 6.0, must be moderately moist, loose, loamy-sandy texture. Best warm, sunny places, southern, southeastern and eastern exposures"
   },
-  "950501f0-a417-4867-8d59-07cef4aa1711": {
+  "b6bf6083-dcbd-4433-9a93-37e520efd577": {
     "name": "Sweet chestnut (Castanea sativa), 70-100cm",
     "description": "Seedling information:\n- Seedling height 70-100 cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n- Seedlings with a plant passport and health certificate\n\nSpecies description:\n- Cultivation form: tree, with a lush, large crown.\n- Fruit: edible\n- Yield: abundant, regular\n- Ripening time: October (1-10)\n- Fertilization: pollinator required\n- Soil requirements: pH value from 4.5 to 6.0, must be moderately moist, loose, loamy-sandy texture. Best warm, sunny places, southern, southeastern and eastern exposures"
   },
-  "484e3a9d-b413-492d-9928-d3887647121b": {
+  "5adf290a-eb97-4c4a-81e5-22d78f8e3b53": {
     "name": "Red Oak ( Quercus rubra), 40-60cm",
     "description": "\n'Seedling information:\n- Seedling height 40-60 cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n- Seedlings with a plant passport and health certificate\n\nSpecies description:\n- Cultivation form: ornamental tree, with a lush, large crown.\n- Does not produce allergens.\n- Attractive deciduous tree known for its rapid growth and beautiful red color of leaves in autumn.\n- Habitat: The tree is resistant to low temperatures and urban pollution. It is relatively fast-growing, tolerates shade, tolerates most soils, thrives on poor and acidic soils, and is suitable for sandy and fresh soil. It does not tolerate flooded or dry habitats."
   },
-  "f6661227-604b-4473-b32b-0d4d08c2d4c4": {
+  "97c31ec0-6c20-4e80-a0e1-a015f3cf368c": {
     "name": "Red Oak ( Quercus rubra), 70-100cm",
     "description": "\n'Seedling information:\n- One-year-old red oak seedlings. Seedling height 70-100cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n\nSpecies description:\n- Cultivation form: ornamental tree, with a lush, large crown.\n- Does not produce allergens.\n- Attractive deciduous tree known for its rapid growth and beautiful red color of leaves in autumn.\n- Habitat: The tree is resistant to low temperatures and urban pollution. It is relatively fast-growing, tolerates shade, tolerates most soils, thrives on poor and acidic soils, and is suitable for sandy and fresh soil. It does not tolerate flooded or dry habitats."
   },
-  "803d1f8b-9622-411a-81db-8e4a9a14d4a2": {
+  "1a88768a-e65a-488f-8457-88f230221921": {
     "name": "Red Oak ( Quercus rubra), 100-140cm",
     "description": "\n'Seedling information:\n- One-year-old red oak seedlings. Seedling height 100-140cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n\nSpecies description:\n- Cultivation form: ornamental tree, with a lush, large crown.\n- Does not produce allergens.\n- Attractive deciduous tree known for its rapid growth and beautiful red color of leaves in autumn.\n- Habitat: The tree is resistant to low temperatures and urban pollution. It is relatively fast-growing, tolerates shade, tolerates most soils, thrives on poor and acidic soils, and is suitable for sandy and fresh soil. It does not tolerate flooded or dry habitats."
   },
-  "258f48ec-c24a-46c0-83c7-af45771f9e96": {
+  "2de6f5e4-d408-4c05-af81-c443d60b91f4": {
     "name": "Pedunculate (Quercus robur)",
     "description": "Seedling information:\nOn offer:\n- Two-year-old pedunculate oak seedlings (Quercus robur). Seedling height 30-70cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n- Seedlings with a plant passport and health certificate\n\nSpecies description:\n- Deciduous tree from the beech family (Fagaceae). It grows 40-50 m tall, the trunk is up to 3 meters in diameter. The root system is well developed, deep, initially with a strong main root, later lateral veins develop. The crown is wide, very well branched, irregular, the branches are strong and thick, horizontally protruding.\n- Habitat: It is suitable for deep and fertile, moist soils rich in limestone. It is resistant to drought and high temperatures, wind and urban pollution. It has difficulty growing in shallow and dry soil, on acidic soils, and is sensitive to late frosts."
   },
-  "120b9b05-968f-4249-b94d-667c5b64b3a5": {
+  "eb69a18b-01d8-4ef8-8672-b4ace7e375b8": {
     "name": "Sessile oak (Quercus petraea)",
     "description": "Seedling information:\nOn offer:\n- Two-year-old sessile oak seedlings (Quercus petraea). Seedling height 30-70cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n- Seedlings with a plant passport and health certificate\n\nSpecies description:\n- Deciduous tree from the beech family (Fagaceae). The tree grows up to 40 meters tall, forming a richly branched, dense and regular crown. The root system is well developed, with a strong central root. The trunk is up to 3 meters in diameter.\n- Habitat: It grows in hilly and mountainous areas, often together with common hornbeam, sweet chestnut or beech. It grows from lowlands to 1300 m above sea level. It reproduces by seeds that germinate quickly. It has modest requirements for habitat, it is suitable for fresh soils, it does not thrive well on acidic soils."
   },
-  "802b4544-47b2-4629-8799-5fda10dc552e": {
+  "2b161e24-ee18-4251-bc5b-5f2cfacf7084": {
     "name": "Sessile oak (Quercus petraea)",
     "description": "Seedling information:\nOn offer:\n- Sessile oak seedlings (Quercus petraea). Seedling height 100-150cm\n- Seedlings are sold bare-root\n- Planting during the dormant season (October-April)\n- Seedlings with a plant passport and health certificate\n\nSpecies description:\n- Deciduous tree from the beech family (Fagaceae). The tree grows up to 40 meters tall, forming a richly branched, dense and regular crown. The root system is well developed, with a strong central root. The trunk is up to 3 meters in diameter.\n- Habitat: It grows in hilly and mountainous areas, often together with common hornbeam, sweet chestnut or beech. It grows from lowlands to 1300 m above sea level. It reproduces by seeds that germinate quickly. It has modest requirements for habitat, it is suitable for fresh soils, it does not thrive well on acidic soils."
   },
-  "c77d31d9-99b2-4f6e-b08e-95ca6252367e": {
+  "387c1399-19bd-4781-b7d4-9aa65b987659": {
     "name": "Planting",
     "description": "We provide a service of converting your neglected agricultural plot from degraded, overgrown land into a forest.\nWe operate in continental part Republic of Croatia.\n\nWe provide the service on a \"turnkey\" basis.\nThe service includes:\n- surveying the current state of the plot in question.\n- preparation of a study with a description of the current state and management guidelines.\n- preparation and cleaning of the plot\n- planting of agreed plant species\n- maintenance in the following periods by agreement\n\nIf you have a plot that is neglected and not used for agricultural production and you want to leave something for your future generations, a forest is the right choice for you.\n\nWhy a forest? Because in our opinion, a forest is the most valuable thing we can leave to our future generations.\n\nA forest is considered a perfect ecological factory, an ideal habitat for numerous animal species.\nA forest contributes to the preservation of biodiversity, purifies the air, produces oxygen, stores carbon dioxide. Forests protect the land from erosion, torrents and floods."
   },
-  "01a669c4-fdc3-42a5-b352-f8c34f302949": {
+  "5dea54fc-123d-45bc-8528-3c4c03ce370b": {
     "title": "Who are we?",
     "description": "We are a family engaged in reforestation and seedling production. We promote sustainable forest management practices and ensure a better future for generations to come."
   },
-  "d394b306-b357-4acf-9f82-4ffc1ad2870a": {
+  "9048dd9e-7fa1-4c4e-a7c9-48870ada6568": {
     "title": "Our vision",
     "description": "We create a world where nature and people are in harmony, ensuring a sustainable future for all generations. Through the active fight against climate change, restoration of ecosystems and responsible management of natural resources, we strive to preserve healthy and prosperous communities."
   },
-  "a2e68e11-4cd9-4f67-afe4-2b9e839530d2": {
+  "b6b5b297-b1be-4736-9edd-27c2e3ae7510": {
     "title": "Our mission",
     "description": "Our mission is to encourage the community to preserve nature through planting and reforestation, promoting awareness of the importance of ecological balance. We engage in sustainable practices and educational initiatives to ensure that future generations enjoy the same natural resources and living conditions available to us today, and strengthen local communities in their fight against climate change."
   }
@@ -91,51 +91,51 @@ module.exports={
     }
   },
   "cookie-banner": "Ova web stranica koristi nužne kolačiće i Google Maps za ispravan prikaz sadržaja. Korištenjem stranice pristajete na uporabu kolačića.",
-  "d131e434-e357-4549-895d-8e6f142cdc13": {
+  "ef2f420a-8736-49f0-a5b8-56bb6b091ad6": {
     "name": "Kesten pitomi, 40-70cm",
-    "description": "Informacije o sadnicama:\n- Visina sadnica 40-70 cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Uzgojni oblik: stablo, sa bujnom, velikom krošnjom.\n- Plod: jestiv\n- Rodnost: obilna, redovita\n- Vrijeme dozrijevanja: listopad (1.-10.)\n- Oplodnja: potreban oprašivač\n- Zahtjev za tlom: pH vrijednosti od 4,5 do 6,0, mora biti umjereno vlažno, rastresito, ilovasto-pjeskovite teksture. Najbolja topla, sunčana mjesta, južne, jugoistočne i istočne ekspozicije"
+    "description": "Informacije o sadnicama:\n- Visina sadnica 40-70 cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Uzgojni oblik: stablo, sa bujnom, velikom krošnjom.\n- Plod: jestiv\n- Rodnost: obilna, redovita\n- Vrijeme dozrijevanja: listopad (1.-10.)\n- Oplodnja: potreban oprašivač\n- Zahtjev za tlom: pH vrijednosti od 4,5 do 6,0, mora biti umjereno vlažno, rastresito, ilovasto-pjeskovite teksture. Najbolja topla, sunčana mjesta, južne, jugoistočne i istočne ekspozicije"
   },
-  "950501f0-a417-4867-8d59-07cef4aa1711": {
+  "b6bf6083-dcbd-4433-9a93-37e520efd577": {
     "name": "Kesten pitomi, 70-100cm",
-    "description": "Informacije o sadnicama:\n- Visina sadnica 70-100 cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Uzgojni oblik: stablo, sa bujnom, velikom krošnjom.\n- Plod: jestiv\n- Rodnost: obilna, redovita\n- Vrijeme dozrijevanja: listopad (1.-10.)\n- Oplodnja: potreban oprašivač\n- Zahtjev za tlom: pH vrijednosti od 4,5 do 6,0, mora biti umjereno vlažno, rastresito, ilovasto-pjeskovite teksture. Najbolja topla, sunčana mjesta, južne, jugoistočne i istočne ekspozicije"
+    "description": "Informacije o sadnicama:\n- Visina sadnica 70-100 cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Uzgojni oblik: stablo, sa bujnom, velikom krošnjom.\n- Plod: jestiv\n- Rodnost: obilna, redovita\n- Vrijeme dozrijevanja: listopad (1.-10.)\n- Oplodnja: potreban oprašivač\n- Zahtjev za tlom: pH vrijednosti od 4,5 do 6,0, mora biti umjereno vlažno, rastresito, ilovasto-pjeskovite teksture. Najbolja topla, sunčana mjesta, južne, jugoistočne i istočne ekspozicije"
   },
-  "484e3a9d-b413-492d-9928-d3887647121b": {
+  "5adf290a-eb97-4c4a-81e5-22d78f8e3b53": {
     "name": "Crvenolisni hrast, 40-60cm",
-    "description": "Informacije o sadnicama:\n- Visina sadnica od 40-60cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Uzgojni oblik: ukrasno stablo, sa bujnom, velikom krošnjom.\n- Ne stvara alergene.\n- Atraktivno listopadno stablo  poznato po svom brzom rastu i predivnoj crvenoj boji lišća u jesen.\n- Stanište: Otporno je stablo na niske temperature i gradska onečišćenja. Relativno je brzog rasta, podnosi sjenu, tolerira većinu tla, uspijeva i na siromašnim zemljištima i tlima kisele reakcije, iodgovara mu pjeskovito i svježe tlo. Ne podnosi poplavljena ali i suha staništa."
+    "description": "Informacije o sadnicama:\n- Visina sadnica od 40-60cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Uzgojni oblik: ukrasno stablo, sa bujnom, velikom krošnjom.\n- Ne stvara alergene.\n- Atraktivno listopadno stablo  poznato po svom brzom rastu i predivnoj crvenoj boji lišća u jesen.\n- Stanište: Otporno je stablo na niske temperature i gradska onečišćenja. Relativno je brzog rasta, podnosi sjenu, tolerira većinu tla, uspijeva i na siromašnim zemljištima i tlima kisele reakcije, iodgovara mu pjeskovito i svježe tlo. Ne podnosi poplavljena ali i suha staništa."
   },
-  "f6661227-604b-4473-b32b-0d4d08c2d4c4": {
+  "97c31ec0-6c20-4e80-a0e1-a015f3cf368c": {
     "name": "Crvenolisni hrast, 70-100cm",
-    "description": "Informacije o sadnicama:\n- Visina sadnica od 70-100cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n\nOpis vrste:\n- Uzgojni oblik: ukrasno stablo, sa bujnom, velikom krošnjom.\n- Ne stvara alergene.\n- Atraktivno listopadno stablo  poznato po svom brzom rastu i predivnoj crvenoj boji lišća u jesen.\n- Stanište: Otporno je stablo na niske temperature i gradska onečišćenja. Relativno je brzog rasta, podnosi sjenu, tolerira većinu tla, uspijeva i na siromašnim zemljištima i tlima kisele reakcije, iodgovara mu pjeskovito i svježe tlo. Ne podnosi poplavljena ali i suha staništa."
+    "description": "Informacije o sadnicama:\n- Visina sadnica od 70-100cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n\nOpis vrste:\n- Uzgojni oblik: ukrasno stablo, sa bujnom, velikom krošnjom.\n- Ne stvara alergene.\n- Atraktivno listopadno stablo  poznato po svom brzom rastu i predivnoj crvenoj boji lišća u jesen.\n- Stanište: Otporno je stablo na niske temperature i gradska onečišćenja. Relativno je brzog rasta, podnosi sjenu, tolerira većinu tla, uspijeva i na siromašnim zemljištima i tlima kisele reakcije, iodgovara mu pjeskovito i svježe tlo. Ne podnosi poplavljena ali i suha staništa."
   },
-  "803d1f8b-9622-411a-81db-8e4a9a14d4a2": {
+  "1a88768a-e65a-488f-8457-88f230221921": {
     "name": "Crvenolisni hrast, 100-140cm",
-    "description": "Informacije o sadnicama:\n- Visina sadnica od 100-140cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n\nOpis vrste:\n- Uzgojni oblik: ukrasno stablo, sa bujnom, velikom krošnjom.\n- Ne stvara alergene.\n- Atraktivno listopadno stablo  poznato po svom brzom rastu i predivnoj crvenoj boji lišća u jesen.\n- Stanište: Otporno je stablo na niske temperature i gradska onečišćenja. Relativno je brzog rasta, podnosi sjenu, tolerira većinu tla, uspijeva i na siromašnim zemljištima i tlima kisele reakcije, iodgovara mu pjeskovito i svježe tlo. Ne podnosi poplavljena ali i suha staništa."
+    "description": "Informacije o sadnicama:\n- Visina sadnica od 100-140cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n\nOpis vrste:\n- Uzgojni oblik: ukrasno stablo, sa bujnom, velikom krošnjom.\n- Ne stvara alergene.\n- Atraktivno listopadno stablo  poznato po svom brzom rastu i predivnoj crvenoj boji lišća u jesen.\n- Stanište: Otporno je stablo na niske temperature i gradska onečišćenja. Relativno je brzog rasta, podnosi sjenu, tolerira većinu tla, uspijeva i na siromašnim zemljištima i tlima kisele reakcije, iodgovara mu pjeskovito i svježe tlo. Ne podnosi poplavljena ali i suha staništa."
   },
-  "258f48ec-c24a-46c0-83c7-af45771f9e96": {
+  "2de6f5e4-d408-4c05-af81-c443d60b91f4": {
     "name": "Hrast lužnjak 30-70cm",
-    "description": "Informacije o sadnicama:\nU ponudi: \n- Dvogodišnje sadnice hrasta lužnjaka (Quercus robur). Visina sadnica od 30-70cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Listopadno stablo iz porodice bukva (Fagaceae). Naraste 40-50 m visine, deblo je promjera do 3 metra. Korijenov sustav je dobro razvijen, dubok, u početku jakog glavnog korijena, kasnije se razvijaju bočne žile. Krošnja je široka, vrlo dobro razgranata, nepravilna, grane su jake i debele, vodoravno stršeće.  \n- Stanište: Odgovaraju mu duboka i plodna, vlažna tla bogata vapnencem.   Otporan je na sušu i visoke temperature, na vjetar i gradska onečišćenja. Teško uspijeva na plitkom i suhom zemljištu, na tlima kisele reakcije i osjetljiv je na kasne mrazeve."
+    "description": "Informacije o sadnicama:\nU ponudi: \n- Dvogodišnje sadnice hrasta lužnjaka (Quercus robur). Visina sadnica od 30-70cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste:\n- Listopadno stablo iz porodice bukva (Fagaceae). Naraste 40-50 m visine, deblo je promjera do 3 metra. Korijenov sustav je dobro razvijen, dubok, u početku jakog glavnog korijena, kasnije se razvijaju bočne žile. Krošnja je široka, vrlo dobro razgranata, nepravilna, grane su jake i debele, vodoravno stršeće.  \n- Stanište: Odgovaraju mu duboka i plodna, vlažna tla bogata vapnencem.   Otporan je na sušu i visoke temperature, na vjetar i gradska onečišćenja. Teško uspijeva na plitkom i suhom zemljištu, na tlima kisele reakcije i osjetljiv je na kasne mrazeve."
   },
-  "120b9b05-968f-4249-b94d-667c5b64b3a5": {
+  "eb69a18b-01d8-4ef8-8672-b4ace7e375b8": {
     "name": "Hrast kitnjak 30-70cm",
-    "description": "Informacije o sadnicama:\nU ponudi: \n- Dvogodišnje sadnice hrasta kitnjaka (Quercus petraea). Visina sadnica od 30-70cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste: \n- Listopadno stablo iz porodice bukva (Fagaceae). Stablo naraste do 40 metara visine tvoreći bogato razgranatu, gustu i pravilnu krošnju. Korijenov sustav je dobro razvijen, s jakim središnjim korijenom. Deblo je promjera do 3 metra.\n- Stanište: Raste u brdskoplaninskim područjima, često zajedno uz obični grab, pitomi kesten ili bukvu. Raste od nizina do 1300 m nadmorske visine. Razmnožava se sjemenom koje brzo klija. Skromnih je zahtjeva prema staništu, odgovaraju mu svježa zemljišta, slabije uspijeva na tlu kisele reakcije."
+    "description": "Informacije o sadnicama:\nU ponudi: \n- Dvogodišnje sadnice hrasta kitnjaka (Quercus petraea). Visina sadnica od 30-70cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste: \n- Listopadno stablo iz porodice bukva (Fagaceae). Stablo naraste do 40 metara visine tvoreći bogato razgranatu, gustu i pravilnu krošnju. Korijenov sustav je dobro razvijen, s jakim središnjim korijenom. Deblo je promjera do 3 metra.\n- Stanište: Raste u brdskoplaninskim područjima, često zajedno uz obični grab, pitomi kesten ili bukvu. Raste od nizina do 1300 m nadmorske visine. Razmnožava se sjemenom koje brzo klija. Skromnih je zahtjeva prema staništu, odgovaraju mu svježa zemljišta, slabije uspijeva na tlu kisele reakcije."
   },
-  "802b4544-47b2-4629-8799-5fda10dc552e": {
+  "2b161e24-ee18-4251-bc5b-5f2cfacf7084": {
     "name": "Hrast kitnjak 100-150cm",
-    "description": "Informacije o sadnicama:\nU ponudi: \n- sadnice hrasta kitnjaka (Quercus petraea). Visina sadnica od 100-150cm\n- Sadnice se prodaju golog korjena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste: \n- Listopadno stablo iz porodice bukva (Fagaceae). Stablo naraste do 40 metara visine tvoreći bogato razgranatu, gustu i pravilnu krošnju. Korijenov sustav je dobro razvijen, s jakim središnjim korijenom. Deblo je promjera do 3 metra.\n- Stanište: Raste u brdskoplaninskim područjima, često zajedno uz obični grab, pitomi kesten ili bukvu. Raste od nizina do 1300 m nadmorske visine. Razmnožava se sjemenom koje brzo klija. Skromnih je zahtjeva prema staništu, odgovaraju mu svježa zemljišta, slabije uspijeva na tlu kisele reakcije."
+    "description": "Informacije o sadnicama:\nU ponudi: \n- sadnice hrasta kitnjaka (Quercus petraea). Visina sadnica od 100-150cm\n- Sadnice se prodaju golog korijena\n- Sadnja tijekom mirovanja vegetacije (listopad-travanj)\n- Sadnice s biljnom putovnicom i potvrdom zdravstvene ispravnosti\n\nOpis vrste: \n- Listopadno stablo iz porodice bukva (Fagaceae). Stablo naraste do 40 metara visine tvoreći bogato razgranatu, gustu i pravilnu krošnju. Korijenov sustav je dobro razvijen, s jakim središnjim korijenom. Deblo je promjera do 3 metra.\n- Stanište: Raste u brdskoplaninskim područjima, često zajedno uz obični grab, pitomi kesten ili bukvu. Raste od nizina do 1300 m nadmorske visine. Razmnožava se sjemenom koje brzo klija. Skromnih je zahtjeva prema staništu, odgovaraju mu svježa zemljišta, slabije uspijeva na tlu kisele reakcije."
   },
-  "c77d31d9-99b2-4f6e-b08e-95ca6252367e": {
+  "387c1399-19bd-4781-b7d4-9aa65b987659": {
     "name": "Sadnja",
     "description": "Vršimo uslugu konverzije vaše zapuštene poljoprivredne parcele iz degradiranog, zaraslog zemljišta u šumu. \nDjelujemo na području kontinentalne Hrvatske.\n\nUslugu radimo po principu \"ključ u ruke\". \nUsluga podrazumijeva:\n- snimanje postojećeg stanja predmetne parcele.\n- izrada elaborata s opisom postojećeg stanja i smjernicama gospodarenja.\n- priprema i čišćenje parcele\n- sadnja dogovorenih biljnih vrsta\n- po dogovoru održavanje u narednim periodima\n\nAko imate parcelu koja vam stoji zapuštena i nije privedena poljoprivrednoj proizvodnji a želite ostaviti nešto svojim budućim naraštajima, šuma je pravi odabir za vas.\n\nZašto šuma? Zato što je prema našem mišljenju šuma nešto najvrijednije što možemo ostaviti našim budućim generacijama.\n\nŠuma se smatra savršenom ekološkom tvornicom, idealnim staništem za brojni životinjski svijet. \nŠuma doprinosi očuvanju biološke raznolikosti, pročišćava zrak, proizvodi kisik, skladišti ugljikov dioksid. Šume štite zemljište od erozije, bujica i poplava."
   },
-  "01a669c4-fdc3-42a5-b352-f8c34f302949": {
+  "5dea54fc-123d-45bc-8528-3c4c03ce370b": {
     "title": "Tko smo mi?",
     "description": "Obitelj smo  koja se bavi pošumljavanjem i proizvodnjom sadnica. Promičemo održive prakse gospodarenja šumama i osiguravamo bolju budućnost za generacije koje dolaze."
   },
-  "d394b306-b357-4acf-9f82-4ffc1ad2870a": {
+  "9048dd9e-7fa1-4c4e-a7c9-48870ada6568": {
     "title": "Naša vizija",
     "description": "Stvaramo svijet u kojem su priroda i ljudi u harmoniji, osiguravajući održivu budućnost za sve generacije. Kroz aktivnu borbu protiv klimatskih promjena, obnavljanje ekosistema i odgovorno upravljanje prirodnim resursima, težimo očuvanju zdravih i prosperitetnih zajednica."
   },
-  "a2e68e11-4cd9-4f67-afe4-2b9e839530d2": {
+  "b6b5b297-b1be-4736-9edd-27c2e3ae7510": {
     "title": "Naša misija",
     "description": "Naša misija je potaknuti zajednicu na očuvanje prirode putem sadnje i pošumljavanja, promičući svijest o važnosti ekološke ravnoteže. Angažiramo se u održivim praksama i obrazovnim inicijativama kako bismo osigurali da buduće generacije uživaju u istim prirodnim resursima i životnim uvjetima koji su dostupni nama danas, te jačamo lokalne zajednice u njihovoj borbi protiv klimatskih promjena."
   }
