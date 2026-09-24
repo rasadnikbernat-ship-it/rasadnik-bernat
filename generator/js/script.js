@@ -102,7 +102,7 @@ function updatePriceListLinks(lng) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const lng = localStorage.getItem('i18nextLng');
+  const lng = localStorage.getItem('i18nextLng') || 'hr';
   i18nInit(lng);
   carouselInit();
   galleryInit();
