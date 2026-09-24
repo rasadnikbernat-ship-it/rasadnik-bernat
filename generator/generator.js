@@ -1,5 +1,5 @@
 const { readFile, writeFile } = require('node:fs/promises');
-const { createWriteStream } = require('node:fs');
+const { createWriteStream, rmSync, mkdirSync } = require('node:fs');
 const path = require('node:path');
 const pretty = require('pretty');
 const browserify = require('browserify');
@@ -85,16 +85,22 @@ function createDocs(data) {
 
 
 async function browserifyJS() {
-  let jsMin = browserify(scriptTemplatePath);
-  if (MINIFY_JS) jsMin = jsMin.transform(path.join(__dirname, './node_modules/@browserify/uglifyify'), { global: true });
-  const ws = createWriteStream(scriptPath);
-  jsMin.bundle().pipe(ws);
-  await new Promise((resolve, reject) => {
-    ws.on('finish', () => {
-      removeCreatedLocales();
-      resolve();
-    }).on('error', err => {
-      reject(err);
+  try {
+    rmSync('../scripts/', { recursive: true, force: true });
+    mkdirSync('../scripts/', { recursive: true });
+    let jsMin = browserify(scriptTemplatePath);
+    if (MINIFY_JS) jsMin = jsMin.transform(path.join(__dirname, './node_modules/@browserify/uglifyify'), { global: true });
+    const ws = createWriteStream(scriptPath);
+    jsMin.bundle().pipe(ws);
+    await new Promise((resolve, reject) => {
+      ws.on('finish', () => {
+        removeCreatedLocales();
+        resolve();
+      }).on('error', err => {
+        reject(err);
+      });
     });
-  });
+  } catch (err) {
+    console.error('Greška:', err);
+  }
 }
