@@ -19,7 +19,6 @@ function generatePriceList(items) {
 }
 
 function generatePdf(items, lang, loc) {
-  console.log('loc.fileName', loc.fileName)
   const filePath = path.join(__dirname, '../../docs/', `${loc.fileName}.pdf`);
 
   const doc = new PDFDocument({ margin: 50 });
