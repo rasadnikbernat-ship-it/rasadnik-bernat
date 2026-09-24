@@ -26,6 +26,7 @@ const indexPath = path.join(__dirname, '../index.html');
 const scriptTemplatePath = path.join(__dirname, './js/script.js');
 const indexCSSTemplatePath = path.join(__dirname, './css/index.css');
 const scriptName = `${uuidv4()}.js`;
+const scriptDirPath = path.join(__dirname, `../scripts`);
 const scriptPath = path.join(__dirname, `../scripts/${scriptName}`);
 const cssIndexPath = path.join(__dirname, '../css/index.css');
 
@@ -86,8 +87,8 @@ function createDocs(data) {
 
 async function browserifyJS() {
   try {
-    rmSync('../scripts/', { recursive: true, force: true });
-    mkdirSync('../scripts/', { recursive: true });
+    rmSync(scriptDirPath, { recursive: true, force: true });
+    mkdirSync(scriptDirPath, { recursive: true });
     let jsMin = browserify(scriptTemplatePath);
     if (MINIFY_JS) jsMin = jsMin.transform(path.join(__dirname, './node_modules/@browserify/uglifyify'), { global: true });
     const ws = createWriteStream(scriptPath);
