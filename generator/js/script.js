@@ -74,9 +74,13 @@ function navbarInit(lng) {
   updatePriceListLinks(lng);
   const navbarCollapse = document.getElementById('navbarCollapse');
   const collapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, { toggle: false });
-  document.querySelectorAll('.nav-link, .navbar-brand')
+
+  document.querySelectorAll('.nav-link, .dropdown-item, .navbar-brand')
     .forEach(el => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (e) => {
+        if (el.classList.contains('dropdown-toggle')) {
+          return;
+        }
         collapse.hide();
       });
     });
