@@ -1,5 +1,6 @@
 const en = require('./en.json');
 const hr = require('./hr.json');
+const lngs = { en, hr };
 
 function carouselInit() {
   document.querySelectorAll('.carousel')
@@ -14,25 +15,27 @@ function translatePage() {
     });
 }
 
-function rerender(locale) {
+function rerender(lng) {
   document.querySelectorAll('.nav-link-language-active')
     .forEach(el => el.classList.remove('nav-link-language-active'));
-  const activeButton = document.getElementById(locale);
+  const activeButton = document.getElementById(lng);
   if (activeButton) activeButton.classList.add('nav-link-language-active');
-  document.documentElement.lang = locale;
+  document.documentElement.lang = lng;
   translatePage();
 }
 
-function changeLocale(locale) {
-  i18next.changeLanguage(locale, () => {
-    rerender(locale);
-    localStorage.setItem('i18nextLng', locale);
+function changeLng(lng) {
+  updatePriceListLinks(lng)
+  i18next.changeLanguage(lng, () => {
+    rerender(lng);
+    localStorage.setItem('i18nextLng', lng);
   });
 }
 
-function i18nInit() {
+function i18nInit(lng) {
   i18next
     .init({
+      lng,
       debug: false,
       fallbackLng: 'hr',
       supportedLngs: ['en', 'hr'],
@@ -47,8 +50,8 @@ function i18nInit() {
       }
     }, (err) => {
       if (err) return console.error(err);
-      document.getElementById('hr')?.addEventListener('click', () => changeLocale('hr'));
-      document.getElementById('en')?.addEventListener('click', () => changeLocale('en'));
+      document.getElementById('hr')?.addEventListener('click', () => changeLng('hr'));
+      document.getElementById('en')?.addEventListener('click', () => changeLng('en'));
       rerender(i18next.resolvedLanguage);
     });
 }
@@ -67,7 +70,8 @@ function galleryInit() {
   });
 }
 
-function navbarInit() {
+function navbarInit(lng) {
+  updatePriceListLinks(lng);
   const navbarCollapse = document.getElementById('navbarCollapse');
   const collapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, { toggle: false });
   document.querySelectorAll('.nav-link, .navbar-brand')
@@ -89,10 +93,19 @@ function cookiesInit() {
   });
 }
 
+function updatePriceListLinks(lng) {
+  const priceListPDFLink = document.getElementById('price-list-pdf');
+  const priceListXMLLink = document.getElementById('price-list-xml');
+
+  if (priceListPDFLink) priceListPDFLink.href = `docs/${lngs[lng].fileName}.pdf`;
+  if (priceListXMLLink) priceListXMLLink.href = `docs/${lngs[lng].fileName}.xml`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  i18nInit();
+  const lng = localStorage.getItem('i18nextLng');
+  i18nInit(lng);
   carouselInit();
   galleryInit();
-  navbarInit();
+  navbarInit(lng);
   cookiesInit();
 });

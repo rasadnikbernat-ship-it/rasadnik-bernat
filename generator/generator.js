@@ -13,6 +13,8 @@ const { mapServicesTemplate } = require('./services/services');
 const { mapContactTemplate } = require('./contact/contact');
 const { mapAboutTemplate } = require('./about/about');
 const { mapGalleryTemplate } = require('./gallery/gallery');
+const { generatePriceList } = require('./priceList/priceList');
+const config = require('../config.json');
 
 const MINIFY_HTML = true;
 const MINIFY_CSS = true;
@@ -31,6 +33,7 @@ const cssIndexPath = path.join(__dirname, '../css/index.css');
     await createIndexHTML(data);
     await createIndexCSS();
     await createScripts(data);
+    createDocs(data);
   } catch (err) {
     console.error(err);
   }
@@ -45,6 +48,7 @@ async function createIndexHTML(data) {
   indexHTML = await mapServicesTemplate(indexHTML, services);
   indexHTML = await mapAboutTemplate(indexHTML, about);
   indexHTML = await mapGalleryTemplate(indexHTML);
+  indexHTML = indexHTML.replaceAll('{{currency}}', config.priceList.currency);
   await writeFile(indexPath, pretty(MINIFY_HTML ? minifyHTML(indexHTML) : indexHTML));
 }
 
@@ -71,6 +75,12 @@ async function createScripts(data) {
   await createLocales(rest);
   await browserifyJS();
 }
+
+function createDocs(data) {
+  const { products } = data;
+  generatePriceList(products);
+}
+
 
 async function browserifyJS() {
   let jsMin = browserify(scriptTemplatePath);

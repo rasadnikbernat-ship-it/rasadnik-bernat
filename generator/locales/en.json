@@ -6,11 +6,11 @@
     "services": "Services",
     "about": "About Us",
     "gallery": "Gallery",
-    "contact": "Contact"
+    "contact": "Contact",
+    "priceList": "Price list"
   },
   "product": {
-    "details": "Details",
-    "priceOnRequest": "Price on request"
+    "details": "Details"
   },
   "carousel" : {
     "control": {
@@ -18,5 +18,6 @@
       "next": "Next"
     }
   },
+  "followUs": "Follow us:",
   "cookie-banner": "This website uses essential cookies and Google Maps to ensure proper functionality and display of content. By continuing to use this site, you agree to the use of cookies."
 }

@@ -7,6 +7,7 @@ const productCarouselItemTemplatePath = path.join(__dirname, './templates/produc
 const productTemplatePath = path.join(__dirname, './templates/product.html');
 const priceOnReqTemplatePath = path.join(__dirname, './templates/price-on-req.html');
 const priceTemplatePath = path.join(__dirname, './templates/price.html');
+const anchorPriceTemplatePath = path.join(__dirname, './templates/anchorPrice.html');
 const imagesRootDir = path.join(__dirname, '../../images/products');
 const imagesPath = './images/products'
 
@@ -29,19 +30,21 @@ async function getTemplates() {
     productCarouselItemTemplate,
     productTemplate,
     priceOnReqTemplate,
-    priceTemplate
+    priceTemplate,
+    anchorPriceTemplate
   ] = await Promise.all([
     readFile(productCarouselSlideBtnTemplatePath, { encoding: 'utf8' }),
     readFile(productCarouselItemTemplatePath, { encoding: 'utf8' }),
     readFile(productTemplatePath, { encoding: 'utf8' }),
     readFile(priceOnReqTemplatePath, { encoding: 'utf8' }),
-    readFile(priceTemplatePath, { encoding: 'utf8' })
+    readFile(priceTemplatePath, { encoding: 'utf8' }),
+    readFile(anchorPriceTemplatePath,  { encoding: 'utf8' })
   ]);
-  return { productCarouselSlideBtnTemplate, productCarouselItemTemplate, productTemplate, priceOnReqTemplate, priceTemplate };
+  return { productCarouselSlideBtnTemplate, productCarouselItemTemplate, productTemplate, priceOnReqTemplate, priceTemplate, anchorPriceTemplate };
 }
 
 async function getProductHTML(item, htmlTemplates) {
-  const { productCarouselSlideBtnTemplate, productCarouselItemTemplate, productTemplate, priceOnReqTemplate, priceTemplate } = htmlTemplates;
+  const { productCarouselSlideBtnTemplate, productCarouselItemTemplate, productTemplate, priceOnReqTemplate, priceTemplate, anchorPriceTemplate } = htmlTemplates;
   const carouselButtons = [];
   const carouselItems = [];
   let fileNames = [];
@@ -65,11 +68,13 @@ async function getProductHTML(item, htmlTemplates) {
     carouselItems.push(getCarouselItem(imageTop.imagePath, imageTop.alt, 0, productCarouselItemTemplate))
   }
   const priceHtml = item.price ? priceTemplate.replaceAll('{{price}}', item.price) : priceOnReqTemplate;
+  const anchorPriceHtml = item.anchorPrice ? anchorPriceTemplate.replaceAll('{{anchorPrice}}', item.anchorPrice) : '-';
   return productTemplate
     .replaceAll('{{id}}', item.id)
     .replaceAll('{{name}}', item.hr_name)
     .replaceAll('{{description}}', item.hr_description)
     .replaceAll('{{price.html}}', priceHtml)
+    .replaceAll('{{anchorPrice.html}}', anchorPriceHtml)
     .replaceAll('{{imageTop}}', imageTop.imagePath)
     .replaceAll('{{imageTopAlt}}', imageTop.alt)
     .replaceAll('{{carouselButtons}}', carouselButtons.join('\n'))

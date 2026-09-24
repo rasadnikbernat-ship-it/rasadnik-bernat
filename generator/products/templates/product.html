@@ -4,6 +4,7 @@
     <div class="card-body">
       <h4 class="card-text" data-i18n="{{id}}.name">{{name}}</h4>
       {{price.html}}
+      {{anchorPrice.html}}
       <button type="button" class="btn btn-secondary btn-product-details" data-i18n="product.details" data-bs-toggle="modal" data-bs-target="#modal-product-{{id}}">Opširnije</button>
     </div>
   </div>
@@ -34,7 +35,10 @@
           <div class="preview-product-description" data-i18n="{{id}}.description">{{description}}</div>
         </div>
         <div class="modal-footer preview-product-footer">
-           {{price.html}}
+          <div class="d-flex flex-column w-100 text-center">
+            {{price.html}}
+            {{anchorPrice.html}}
+          </div>
         </div>
         <div class="modal-footer preview-product-footer preview-product-footer-closeBtn" data-bs-dismiss="modal">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

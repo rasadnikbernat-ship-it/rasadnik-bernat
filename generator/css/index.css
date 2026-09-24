@@ -113,6 +113,11 @@ body {
   border-color: var(--secondary-color);
 }
 
+.product-card .card-price {
+  padding-top: .5rem;
+  border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
+
 .product-card:hover {
   -webkit-transform: scale(1.05, 1.05);
   transform: scale(1.05, 1.05);
@@ -208,7 +213,7 @@ body {
 
 .contact p {
   margin: auto;
-  margin-left: 2rem;
+  margin-left: 0;
   font-size: var(--contact-fs);
 }
 
@@ -222,6 +227,7 @@ body {
   align-items: center;
   display: flex;
   margin-bottom: 2rem;
+  margin-left: 1rem;
 }
 
 .contact-item-icon {

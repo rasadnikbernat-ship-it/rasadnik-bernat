@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PriceList>
+  <Header>
+    <Title>Cjenik</Title>
+    <ItemHeaderName>Naziv proizvoda</ItemHeaderName>
+    <ItemHeaderPrice>Cijena</ItemHeaderPrice>
+  </Header>
+  <Items>
+    <Item>
+      <Name>Kesten pitomi, 40-70cm</Name>
+      <Price>5.00 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>5.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Kesten pitomi, 70-100cm</Name>
+      <Price>7.00 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>7.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Crvenolisni hrast, 40-60cm</Name>
+      <Price>5.00 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>5.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Crvenolisni hrast, 70-100cm</Name>
+      <Price>9.00 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>9.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Crvenolisni hrast, 100-140cm</Name>
+      <Price>15.00 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>15.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Hrast lužnjak 30-70cm</Name>
+      <Price>1.20 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>1.20 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Hrast kitnjak 30-70cm</Name>
+      <Price>1.20 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>1.20 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Hrast kitnjak 100-150cm</Name>
+      <Price>4.00 €</Price>
+      <AnchorPriceLabel>Cijena na dan 10.9.2026.</AnchorPriceLabel>
+      <AnchorPrice>4.00 €</AnchorPrice>
+    </Item>
+  </Items>
+  <Footer>U cijene nije uračunat PDV prema čl. 90. Zakona o PDV-u (mali porezni obveznik).
+Sve cijene na cjeniku ističu se kao konačne cijene koje kupac plaća. Zadržavamo pravo promjene cjenika.</Footer>
+</PriceList>

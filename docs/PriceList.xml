@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PriceList>
+  <Header>
+    <Title>Price List</Title>
+    <ItemHeaderName>Product Name</ItemHeaderName>
+    <ItemHeaderPrice>Price</ItemHeaderPrice>
+  </Header>
+  <Items>
+    <Item>
+      <Name>Sweet chestnut (Castanea sativa), 40-70cm</Name>
+      <Price>5.00 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>5.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Sweet chestnut (Castanea sativa), 70-100cm</Name>
+      <Price>7.00 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>7.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Red Oak ( Quercus rubra), 40-60cm</Name>
+      <Price>5.00 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>5.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Red Oak ( Quercus rubra), 70-100cm</Name>
+      <Price>9.00 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>9.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Red Oak ( Quercus rubra), 100-140cm</Name>
+      <Price>15.00 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>15.00 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Pedunculate (Quercus robur)</Name>
+      <Price>1.20 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>1.20 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Sessile oak (Quercus petraea)</Name>
+      <Price>1.20 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>1.20 €</AnchorPrice>
+    </Item>
+    <Item>
+      <Name>Sessile oak (Quercus petraea)</Name>
+      <Price>4.00 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>4.00 €</AnchorPrice>
+    </Item>
+  </Items>
+  <Footer>Prices do not include VAT pursuant to Article 90 of the VAT Act (small business exemption).
+All prices listed are final prices payable by the customer. We reserve the right to change prices.</Footer>
+</PriceList>

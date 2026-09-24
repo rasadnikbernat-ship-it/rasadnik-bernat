@@ -6,11 +6,11 @@
     "services": "Usluge",
     "about": "O nama",
     "gallery": "Galerija",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "priceList": "Cjenik"
   },
   "product": {
-    "details": "Opširnije",
-    "priceOnRequest": "Cijena na upit"
+    "details": "Opširnije"
   },
   "carousel": {
     "control": {
@@ -18,5 +18,6 @@
       "next": "Sljedeća"
     }
   },
+  "followUs": "Pratite nas:",
   "cookie-banner": "Ova web stranica koristi nužne kolačiće i Google Maps za ispravan prikaz sadržaja. Korištenjem stranice pristajete na uporabu kolačića."
 }

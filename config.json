@@ -1,0 +1,27 @@
+{
+  "priceList": {
+    "currency": "€",
+    "hr": {
+      "fileName": "Cjenik",
+      "title": "Cjenik",
+      "item": {
+        "name": "Naziv proizvoda",
+        "price": "Cijena",
+        "priceOnRequest": "Cijena na upit",
+        "anchorPrice": "Cijena na dan 10.9.2026."
+      },
+      "footer": "U cijene nije uračunat PDV prema čl. 90. Zakona o PDV-u (mali porezni obveznik).\nSve cijene na cjeniku ističu se kao konačne cijene koje kupac plaća. Zadržavamo pravo promjene cjenika."
+    },
+    "en": {
+      "fileName": "PriceList",
+      "title": "Price List",
+      "item": {
+        "name": "Product Name",
+        "price": "Price",
+        "priceOnRequest": "Price on request",
+        "anchorPrice": "Price as of Sep 10, 2026"
+      },
+      "footer": "Prices do not include VAT pursuant to Article 90 of the VAT Act (small business exemption).\nAll prices listed are final prices payable by the customer. We reserve the right to change prices."
+    }
+  }
+}

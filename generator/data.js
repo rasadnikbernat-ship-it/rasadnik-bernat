@@ -6,7 +6,7 @@ const dataPath = path.join(__dirname, '../data.xlsx');
 const contactWorksheetName = 'contact';
 const contactHeaders = ['number', 'mail', 'address', 'mapUrl', 'mapIframe'];
 const productsWorksheetName = 'products';
-const productsHeaders = ['hr_name', 'name', 'hr_description', 'description', 'price', 'imageDir'];
+const productsHeaders = ['hr_name', 'name', 'hr_description', 'description', 'price', 'anchorPrice', 'imageDir'];
 const servicesWorksheetName = 'services';
 const servicesHeaders = ['hr_name', 'name', 'hr_description', 'description', 'imageName'];
 const aboutWorksheetName = 'about';
@@ -34,10 +34,12 @@ function prepareProductsData(products) {
   const nameCounterMap = {};
   return products.map(item => {
     let parsedPrice = parseFloat(item.price);
+    let parsedAnchorPrice = parseFloat(item.anchorPrice);
     return {
       ...item,
       id: uuidv4(),
-      price: isNaN(parsedPrice) ? undefined : parsedPrice.toFixed(2)
+      price: isNaN(parsedPrice) ? undefined : parsedPrice.toFixed(2),
+      anchorPrice: isNaN(parsedAnchorPrice) ? undefined : parsedAnchorPrice.toFixed(2)
     }
   });
 }
@@ -54,7 +56,6 @@ function prepareServicesData(services) {
 }
 
 function prepareAboutData(about) {
-  const titleCounterMap = {};
   return about.map(item => {
     return {
       ...item,
