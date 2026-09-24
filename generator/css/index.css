@@ -98,7 +98,7 @@ body {
   text-underline-offset: 3px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   .navbar-collapse .dropdown-menu {
     background-color: transparent;
     border: none;
@@ -343,7 +343,7 @@ body {
     min-height: 538px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .banner {
     min-height: 453px;
   }

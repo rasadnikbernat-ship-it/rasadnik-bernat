@@ -15,6 +15,7 @@ const { mapAboutTemplate } = require('./about/about');
 const { mapGalleryTemplate } = require('./gallery/gallery');
 const { generatePriceList } = require('./priceList/priceList');
 const config = require('../config.json');
+const { v4: uuidv4 } = require('uuid');
 
 const MINIFY_HTML = true;
 const MINIFY_CSS = true;
@@ -24,7 +25,8 @@ const indexHTMLTemplatePath = path.join(__dirname, './index.html');
 const indexPath = path.join(__dirname, '../index.html');
 const scriptTemplatePath = path.join(__dirname, './js/script.js');
 const indexCSSTemplatePath = path.join(__dirname, './css/index.css');
-const scriptPath = path.join(__dirname, '../scripts/script.js');
+const scriptName = `${uuidv4()}.js`;
+const scriptPath = path.join(__dirname, `../scripts/${scriptName}`);
 const cssIndexPath = path.join(__dirname, '../css/index.css');
 
 (async () => {
@@ -48,7 +50,7 @@ async function createIndexHTML(data) {
   indexHTML = await mapServicesTemplate(indexHTML, services);
   indexHTML = await mapAboutTemplate(indexHTML, about);
   indexHTML = await mapGalleryTemplate(indexHTML);
-  indexHTML = indexHTML.replaceAll('{{currency}}', config.priceList.currency);
+  indexHTML = indexHTML.replaceAll('{{currency}}', config.priceList.currency).replaceAll('{{scriptName}}', scriptName);
   await writeFile(indexPath, pretty(MINIFY_HTML ? minifyHTML(indexHTML) : indexHTML));
 }
 
