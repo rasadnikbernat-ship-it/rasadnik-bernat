@@ -65,7 +65,7 @@ function minifyHTML(html) {
     removeRedundantAttributes: true,
     useShortDoctype: true,
     removeEmptyAttributes: true,
-  })
+  });
 }
 
 async function createIndexCSS() {
@@ -76,14 +76,17 @@ async function createIndexCSS() {
 async function createScripts(data) {
   const { contact, ...rest } = data;
   await createLocales(rest);
-  await browserifyJS();
+  try {
+    await browserifyJS();
+  } finally {
+    await removeCreatedLocales();
+  }
 }
 
 function createDocs(data) {
   const { products } = data;
   generatePriceList(products);
 }
-
 
 async function browserifyJS() {
   try {
@@ -94,14 +97,10 @@ async function browserifyJS() {
     const ws = createWriteStream(scriptPath);
     jsMin.bundle().pipe(ws);
     await new Promise((resolve, reject) => {
-      ws.on('finish', () => {
-        removeCreatedLocales();
-        resolve();
-      }).on('error', err => {
-        reject(err);
-      });
+      ws.on('finish', resolve).on('error', reject);
     });
   } catch (err) {
     console.error('Greška:', err);
+    throw err;
   }
 }

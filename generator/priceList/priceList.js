@@ -27,13 +27,16 @@ function generatePdf(items, lang, loc) {
   const fontPath = path.join(__dirname, '../fonts/Roboto-Regular.ttf');
   const fontBoldPath = path.join(__dirname, '../fonts/Roboto-Bold.ttf');
 
-  if (fs.existsSync(fontPath)) {
+  const fontExists = fs.existsSync(fontPath);
+  const fontBoldExists = fs.existsSync(fontBoldPath);
+
+  if (fontExists) {
     doc.registerFont('CustomFont', fontPath);
-    doc.registerFont('CustomFont-Bold', fontBoldPath || fontPath);
+    doc.registerFont('CustomFont-Bold', fontBoldExists ? fontBoldPath : fontPath);
   }
 
-  const currentFont = fs.existsSync(fontPath) ? 'CustomFont' : 'Helvetica';
-  const currentBoldFont = fs.existsSync(fontBoldPath || fontPath) ? 'CustomFont-Bold' : 'Helvetica-Bold';
+  const currentFont = fontExists ? 'CustomFont' : 'Helvetica';
+  const currentBoldFont = fontExists ? 'CustomFont-Bold' : 'Helvetica-Bold';
 
   const logoPath = path.join(__dirname, '../../images/logo.png');
   if (fs.existsSync(logoPath)) {

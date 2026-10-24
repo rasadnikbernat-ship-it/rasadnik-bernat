@@ -9,7 +9,7 @@ const priceOnReqTemplatePath = path.join(__dirname, './templates/price-on-req.ht
 const priceTemplatePath = path.join(__dirname, './templates/price.html');
 const anchorPriceTemplatePath = path.join(__dirname, './templates/anchorPrice.html');
 const imagesRootDir = path.join(__dirname, '../../images/products');
-const imagesPath = './images/products'
+const imagesPath = './images/products';
 
 async function mapProductsTemplate(html, products) {
   const productHTMLs = await getProductHTMLs(products);
@@ -49,23 +49,23 @@ async function getProductHTML(item, htmlTemplates) {
   const carouselItems = [];
   let fileNames = [];
   try {
-    fileNames = await readdir(`${imagesRootDir}/${item.imageDir}`);
-  } catch(err) {
-    //console.error(err);
+    fileNames = await readdir(path.join(imagesRootDir, item.imageDir));
+  } catch (err) {
+    // image directory doesn't exist — fall back to placeholder image
   }
   let imageTop = {};
   if (fileNames.length > 0) {
     fileNames.forEach((fileName, index) => {
       const alt = getImageAlt(fileName, item.hr_name);
       const imagePath = getImagePath(item.imageDir, fileName);
-      if (index == 0) imageTop = { imagePath, alt };
+      if (index === 0) imageTop = { imagePath, alt };
       carouselButtons.push(getCarouselBtn(item, alt, index, productCarouselSlideBtnTemplate));
-      carouselItems.push(getCarouselItem(imagePath, alt, index, productCarouselItemTemplate))
+      carouselItems.push(getCarouselItem(imagePath, alt, index, productCarouselItemTemplate));
     });
   } else {
     imageTop = { imagePath: './images/nema-slike.png', alt: item.hr_name };
     carouselButtons.push(getCarouselBtn(item, imageTop.alt, 0, productCarouselSlideBtnTemplate));
-    carouselItems.push(getCarouselItem(imageTop.imagePath, imageTop.alt, 0, productCarouselItemTemplate))
+    carouselItems.push(getCarouselItem(imageTop.imagePath, imageTop.alt, 0, productCarouselItemTemplate));
   }
   const priceHtml = item.price ? priceTemplate.replaceAll('{{price}}', item.price) : priceOnReqTemplate;
   const anchorPriceHtml = item.anchorPrice ? anchorPriceTemplate.replaceAll('{{anchorPrice}}', item.anchorPrice) : '-';
@@ -78,7 +78,7 @@ async function getProductHTML(item, htmlTemplates) {
     .replaceAll('{{imageTop}}', imageTop.imagePath)
     .replaceAll('{{imageTopAlt}}', imageTop.alt)
     .replaceAll('{{carouselButtons}}', carouselButtons.join('\n'))
-    .replaceAll('{{carouselItems}}', carouselItems.join('\n'))
+    .replaceAll('{{carouselItems}}', carouselItems.join('\n'));
 }
 
 function getCarouselBtn(item, productAriaLabel, slide, template) {

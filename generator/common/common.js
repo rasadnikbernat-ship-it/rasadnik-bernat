@@ -15,7 +15,7 @@ async function getTemplates() {
 }
 
 async function getTemplate(name) {
-  const html = await readFile(`${templatesDir}/${name}`, { encoding: 'utf8' });
+  const html = await readFile(path.join(templatesDir, name), { encoding: 'utf8' });
   return { name, html };
 }
 

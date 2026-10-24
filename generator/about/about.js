@@ -4,7 +4,7 @@ const path = require('node:path');
 const aboutTemplatePath = path.join(__dirname, './templates/about.html');
 const aboutSlideBtnTemplatePath = path.join(__dirname, './templates/about-item-slide-btn.html');
 const aboutItemTemplatePath = path.join(__dirname, './templates/about-item.html');
-const imagesPath = './images/about'
+const imagesPath = './images/about';
 
 async function mapAboutTemplate(html, about) {
   const { items, buttons } = await getAboutItemAndBtnHTMLs(about);
@@ -22,7 +22,7 @@ async function getAboutItemAndBtnHTMLs(about) {
   const items = [];
   about.forEach((item, index) => {
     buttons.push(getBtn(item, index, aboutSlideBtnTemplate));
-    items.push(getItem(item, index, aboutItemTemplate))
+    items.push(getItem(item, index, aboutItemTemplate));
   });
   return { buttons, items };
 }

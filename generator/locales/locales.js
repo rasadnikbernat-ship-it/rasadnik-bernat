@@ -6,7 +6,7 @@ const hrLocale = require('./hr.json');
 const config = require('../../config.json');
 
 const localesDirPath = path.join(__dirname, '../js');
-const localeKeys = ['name', 'description', 'title']
+const localeKeys = ['name', 'description', 'title'];
 
 async function createLocales(data) {
   const localesFromConfig = getLocalesFromConfig();
@@ -17,16 +17,16 @@ async function createLocales(data) {
     hr = { ...hr, ...getLocale(item).hr };
   });
   await Promise.all([
-    writeFile(`${localesDirPath}/en.json`, JSON.stringify(en, null, 2)),
-    writeFile(`${localesDirPath}/hr.json`, JSON.stringify(hr, null, 2)),
+    writeFile(path.join(localesDirPath, 'en.json'), JSON.stringify(en, null, 2)),
+    writeFile(path.join(localesDirPath, 'hr.json'), JSON.stringify(hr, null, 2)),
   ]);
 }
 
-async function removeCreatedLocales(params) {
+async function removeCreatedLocales() {
   try {
     await Promise.all([
-      unlink(`${localesDirPath}/en.json`),
-      unlink(`${localesDirPath}/hr.json`)
+      unlink(path.join(localesDirPath, 'en.json')),
+      unlink(path.join(localesDirPath, 'hr.json')),
     ]);
   } catch (error) {
     console.warn('Delete js/locale files has failed.');
@@ -57,15 +57,15 @@ function getLocale(data) {
 }
 
 function getLocalesFromConfig() {
-  let en = {
+  const en = {
     priceOnRequest: config.priceList.en.item.priceOnRequest,
     anchorPrice: config.priceList.en.item.anchorPrice,
-    fileName: config.priceList.en.fileName
+    fileName: config.priceList.en.fileName,
   };
-  let hr = {
+  const hr = {
     priceOnRequest: config.priceList.hr.item.priceOnRequest,
     anchorPrice: config.priceList.hr.item.anchorPrice,
-    fileName: config.priceList.hr.fileName
+    fileName: config.priceList.hr.fileName,
   };
   return { en, hr };
 }

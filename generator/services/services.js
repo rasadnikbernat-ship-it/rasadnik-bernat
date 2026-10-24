@@ -3,7 +3,7 @@ const path = require('node:path');
 
 const servicesTemplatePath = path.join(__dirname, './templates/services.html');
 const serviceTemplatePath = path.join(__dirname, './templates/service.html');
-const imagesPath = './images/services'
+const imagesPath = './images/services';
 
 const SERVICE_COL = [
   'col-md-12 col-sm-12 col-12',
@@ -20,8 +20,11 @@ async function mapServicesTemplate(html, services) {
 }
 
 async function getServiceHTMLs(services) {
+  if (services.length === 0) {
+    return ['<p class="services-coming-soon" data-i18n="comingSoon">Uskoro...</p>'];
+  }
   const templates = await getTemplates();
-  const serviceCol = services.length > 0 ? SERVICE_COL[(Math.min(SERVICE_COL.length, services.length)) - 1] : SERVICE_COL[0];
+  const serviceCol = SERVICE_COL[Math.min(SERVICE_COL.length, services.length) - 1];
   return services.map(item => getServiceHTML(serviceCol, item, templates));
 }
 

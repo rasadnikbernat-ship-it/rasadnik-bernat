@@ -11,7 +11,7 @@ function translatePage() {
   document.querySelectorAll('[data-i18n]')
     .forEach(el => {
       const key = el.dataset.i18n;
-      el.innerHTML = i18next.t(key);
+      el.textContent = i18next.t(key);
     });
 }
 
@@ -25,7 +25,7 @@ function rerender(lng) {
 }
 
 function changeLng(lng) {
-  updatePriceListLinks(lng)
+  updatePriceListLinks(lng);
   i18next.changeLanguage(lng, () => {
     rerender(lng);
     localStorage.setItem('i18nextLng', lng);
@@ -77,7 +77,7 @@ function navbarInit(lng) {
 
   document.querySelectorAll('.nav-link, .dropdown-item, .navbar-brand')
     .forEach(el => {
-      el.addEventListener('click', (e) => {
+      el.addEventListener('click', () => {
         if (el.classList.contains('dropdown-toggle')) {
           return;
         }

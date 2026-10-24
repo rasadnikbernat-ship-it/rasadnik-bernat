@@ -75,6 +75,7 @@ body {
 .products {
   padding-top: 3rem;
   padding-bottom: 1rem;
+  scroll-margin-top: 3.5rem;
 }
 
 .carousel-inner {
@@ -207,6 +208,7 @@ body {
   padding: 4em 0px;
   color: var(--white-color);
   text-align: center;
+  scroll-margin-top: 3.5rem;
 }
 
 .services-header {
@@ -233,6 +235,7 @@ body {
 .contact {
   color: var(--tertiary-color);
   padding: 2rem 0;
+  scroll-margin-top: 3.5rem;
 }
 
 .contact p {
@@ -290,6 +293,7 @@ body {
   color: var(--tertiary-color);
   padding-top: 3rem;
   padding-bottom: 3rem;
+  scroll-margin-top: 3.5rem;
 }
 
 .about-header {
@@ -369,6 +373,7 @@ body {
   background: var(--primary-color);
   color: var(--white-color);
   padding: 2rem 0;
+  scroll-margin-top: 3.5rem;
 }
 
 .gallery-header {
