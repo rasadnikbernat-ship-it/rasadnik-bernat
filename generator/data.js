@@ -1,41 +1,33 @@
 const path = require('node:path');
-const XLSX = require("xlsx");
+const fs = require('node:fs');
 const { v4: uuidv4 } = require('uuid');
 
-const dataPath = path.join(__dirname, '../data.xlsx');
-const contactWorksheetName = 'contact';
-const contactHeaders = ['number', 'mail', 'address', 'mapUrl', 'mapIframe'];
-const productsWorksheetName = 'products';
-const productsHeaders = ['hr_name', 'name', 'hr_description', 'description', 'price', 'anchorPrice', 'imageDir'];
-const servicesWorksheetName = 'services';
-const servicesHeaders = ['hr_name', 'name', 'hr_description', 'description', 'imageName'];
-const aboutWorksheetName = 'about';
-const aboutHeaders = ['hr_title', 'title', 'hr_description', 'description', 'imageName'];
+// data.json je glavni izvor podataka (uređuje se kroz editor).
+// data.xlsx ostaje format za export/import (vidi editor/server.js).
+const dataJsonPath = path.join(__dirname, '../data.json');
 
 function getData() {
-  const workbook = XLSX.readFile(dataPath);
-
-  const contactWorksheet = workbook.Sheets[contactWorksheetName];
-  if (!contactWorksheet) throw new Error(`Excel sheet "${contactWorksheetName}" not found`);
-  const contact = XLSX.utils.sheet_to_json(contactWorksheet, { header: contactHeaders, range: 1 });
-
-  const productsWorksheet = workbook.Sheets[productsWorksheetName];
-  if (!productsWorksheet) throw new Error(`Excel sheet "${productsWorksheetName}" not found`);
-  const products = XLSX.utils.sheet_to_json(productsWorksheet, { header: productsHeaders, range: 1 });
-
-  const servicesWorksheet = workbook.Sheets[servicesWorksheetName];
-  if (!servicesWorksheet) throw new Error(`Excel sheet "${servicesWorksheetName}" not found`);
-  const services = XLSX.utils.sheet_to_json(servicesWorksheet, { header: servicesHeaders, range: 1 });
-
-  const aboutWorksheet = workbook.Sheets[aboutWorksheetName];
-  if (!aboutWorksheet) throw new Error(`Excel sheet "${aboutWorksheetName}" not found`);
-  const about = XLSX.utils.sheet_to_json(aboutWorksheet, { header: aboutHeaders, range: 1 });
+  const data = readDataJson();
 
   return {
-    contact: contact[0],
-    products: prepareProductsData(products),
-    services: prepareServicesData(services),
-    about: prepareAboutData(about),
+    contact: data.contact,
+    products: prepareProductsData(data.products),
+    services: prepareServicesData(data.services),
+    about: prepareAboutData(data.about),
+  };
+}
+
+function readDataJson() {
+  if (!fs.existsSync(dataJsonPath)) {
+    throw new Error(`data.json nije pronađen: ${dataJsonPath}. Pokreni: node generator/migrate-xlsx-to-json.js`);
+  }
+  const raw = fs.readFileSync(dataJsonPath, 'utf8');
+  const parsed = JSON.parse(raw);
+  return {
+    contact: parsed.contact || {},
+    products: Array.isArray(parsed.products) ? parsed.products : [],
+    services: Array.isArray(parsed.services) ? parsed.services : [],
+    about: Array.isArray(parsed.about) ? parsed.about : [],
   };
 }
 

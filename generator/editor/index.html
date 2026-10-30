@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasadnik Bernat — Editor sadržaja</title>
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  <header class="ed-header">
+    <div class="ed-brand">
+      <strong>Rasadnik Bernat</strong> <span>editor sadržaja</span>
+    </div>
+    <div class="ed-actions">
+      <span id="status" class="ed-status" aria-live="polite"></span>
+      <button id="btnExportXlsx" class="btn btn-save" type="button" title="Izvezi sve podatke (sadnice, usluge, o nama, kontakt) u data.xlsx">⬇ Excel</button>
+      <label class="btn btn-save xlsx-import-label" title="Uvezi data.xlsx (zamjenjuje sve podatke)">
+        ⬆ Excel
+        <input type="file" id="importXlsxFile" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none;">
+      </label>
+      <button id="btnSave" class="btn btn-save">Spremi</button>
+      <button id="btnBuild" class="btn btn-build">Spremi i generiraj web</button>
+      <button id="btnPreview" class="btn btn-preview">Pregledaj stranicu ↗</button>
+      <button id="btnPublish" class="btn btn-publish" title="Generiraj web i objavi promjene (git push)">⬆ Objavi (Publish)</button>
+    </div>
+  </header>
+
+  <nav class="ed-tabs">
+    <button class="tab active" data-tab="products">Sadnice</button>
+    <button class="tab" data-tab="services">Usluge</button>
+    <button class="tab" data-tab="about">O nama</button>
+    <button class="tab" data-tab="gallery">Galerija</button>
+    <button class="tab" data-tab="contact">Kontakt</button>
+    <button class="tab" data-tab="settings">Postavke</button>
+  </nav>
+
+  <main class="ed-main">
+    <!-- ===================== TAB: Sadnice (products) ===================== -->
+    <section id="tab-products" class="tab-panel active">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Sadnice</h2>
+            <p class="hint">Svaki proizvod ima hrvatski i engleski naziv/opis. Slike se učitavaju u folder proizvoda (images/products/…). Prvi folder = galerija slika proizvoda.</p>
+          </div>
+          <div class="toolbar-right">
+            <button id="btnAddProduct" class="btn btn-primary btn-small" type="button">+ Dodaj sadnicu</button>
+          </div>
+        </div>
+        <div id="productsList" class="cards"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Usluge (services) ===================== -->
+    <section id="tab-services" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Usluge</h2>
+            <p class="hint">Usluge s hrvatskim i engleskim nazivom/opisom te jednom slikom (images/services/).</p>
+          </div>
+          <button id="btnAddService" class="btn btn-primary btn-small" type="button">+ Dodaj uslugu</button>
+        </div>
+        <div id="servicesList" class="cards"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: O nama (about) ===================== -->
+    <section id="tab-about" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>O nama</h2>
+            <p class="hint">Sekcije "O nama" (npr. Tko smo mi, Vizija, Misija) s hrvatskim i engleskim naslovom/opisom te slikom (images/about/).</p>
+          </div>
+          <button id="btnAddAbout" class="btn btn-primary btn-small" type="button">+ Dodaj sekciju</button>
+        </div>
+        <div id="aboutList" class="cards"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Galerija (gallery) ===================== -->
+    <section id="tab-gallery" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Galerija</h2>
+            <p class="hint">Slike galerije (images/gallery/images/). Thumbnaili se automatski generiraju pri generiranju weba.</p>
+          </div>
+          <label class="btn btn-primary btn-small gallery-upload-label">
+            + Dodaj slike
+            <input type="file" id="galleryUploadFile" accept="image/*" multiple style="display:none;">
+          </label>
+        </div>
+        <div id="galleryGrid" class="gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Kontakt (contact) ===================== -->
+    <section id="tab-contact" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Kontakt</h2>
+            <p class="hint">Kontakt podaci i Google Maps. "Map iframe" je HTML kôd ugradnje karte (Google Maps → Dijeli → Ugradi kartu).</p>
+          </div>
+        </div>
+        <form id="contactForm" class="config-form">
+          <fieldset class="config-group">
+            <legend>Podaci</legend>
+            <div class="grid">
+              <label>Telefon<input type="text" id="ctNumber"></label>
+              <label>Email<input type="text" id="ctMail"></label>
+              <label class="full">Adresa<input type="text" id="ctAddress"></label>
+              <label class="full">Google Maps link (mapUrl)<input type="text" id="ctMapUrl"></label>
+              <label class="full">Google Maps iframe (mapIframe)
+                <textarea id="ctMapIframe" rows="4" class="config-textarea" placeholder="&lt;iframe src=...&gt;&lt;/iframe&gt;"></textarea>
+              </label>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Postavke (config.json) ===================== -->
+    <section id="tab-settings" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Postavke cjenika</h2>
+            <p class="hint">Valuta i nazivi/oznake u cjeniku (PDF/XML se generiraju na hrvatskom i engleskom).</p>
+          </div>
+        </div>
+
+        <form id="configForm" class="config-form">
+          <fieldset class="config-group">
+            <legend>Općenito</legend>
+            <div class="grid">
+              <label>Valuta<input type="text" id="cfgCurrency" placeholder="€"></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="config-group">
+            <legend>Cjenik — Hrvatski</legend>
+            <div class="grid">
+              <label>Naziv datoteke (bez ekstenzije)<input type="text" id="cfgHrFileName"></label>
+              <label>Naslov cjenika<input type="text" id="cfgHrTitle"></label>
+              <label>Oznaka "Naziv proizvoda"<input type="text" id="cfgHrItemName"></label>
+              <label>Oznaka "Cijena"<input type="text" id="cfgHrItemPrice"></label>
+              <label>Tekst "cijena na upit"<input type="text" id="cfgHrItemOnRequest"></label>
+              <label>Oznaka sidrene cijene<input type="text" id="cfgHrItemAnchor"></label>
+              <label class="full">Podnožje cjenika<textarea id="cfgHrFooter" rows="3" class="config-textarea"></textarea></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="config-group">
+            <legend>Cjenik — Engleski</legend>
+            <div class="grid">
+              <label>File name (without extension)<input type="text" id="cfgEnFileName"></label>
+              <label>Price list title<input type="text" id="cfgEnTitle"></label>
+              <label>"Product Name" label<input type="text" id="cfgEnItemName"></label>
+              <label>"Price" label<input type="text" id="cfgEnItemPrice"></label>
+              <label>"Price on request" text<input type="text" id="cfgEnItemOnRequest"></label>
+              <label>Anchor price label<input type="text" id="cfgEnItemAnchor"></label>
+              <label class="full">Price list footer<textarea id="cfgEnFooter" rows="3" class="config-textarea"></textarea></label>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== MODAL: Image preview / promjena ===================== -->
+  <div class="modal-overlay" id="modalImage" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalImageTitle">
+      <div class="modal-head">
+        <h3 id="modalImageTitle">Slika</h3>
+        <button class="modal-close" data-close aria-label="Zatvori">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="image-modal-preview-wrap">
+          <img id="imageModalPreview" class="image-modal-preview" alt="Pregled slike">
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-save" data-close>Zatvori</button>
+          <label class="btn btn-primary image-modal-change">
+            Promijeni sliku
+            <input type="file" id="imageModalFile" accept="image/*" style="display:none;">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: Galerija lightbox ===================== -->
+  <div class="modal-overlay" id="modalGallery" hidden>
+    <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="modalGalleryTitle">
+      <div class="modal-head">
+        <h3 id="modalGalleryTitle">Pregled slike</h3>
+        <button class="modal-close" data-close aria-label="Zatvori">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="image-modal-preview-wrap">
+          <img id="galleryModalPreview" class="image-modal-preview" alt="Pregled slike">
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-save" data-close>Zatvori</button>
+          <button type="button" id="galleryModalDelete" class="btn btn-danger">Obriši sliku</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="editor.js"></script>
+</body>
+</html>

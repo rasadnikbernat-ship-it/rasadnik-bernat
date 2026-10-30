@@ -1,0 +1,12 @@
+{
+  "name": "rasadnik-bernat-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rasadnik Bernat web stranica — sadržaj se uređuje kroz editor (npm start).",
+  "scripts": {
+    "start": "node generator/editor/server.js",
+    "editor": "node generator/editor/server.js",
+    "build": "node generator/generator.js",
+    "migrate": "node generator/migrate-xlsx-to-json.js"
+  }
+}
