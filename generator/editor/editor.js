@@ -648,15 +648,32 @@
     });
   }
 
+  // Animirani "radi se" indikator (točkice se vrte) — vraća stop funkciju.
+  function startSpinner(baseMsg) {
+    var dots = 0;
+    setStatus(baseMsg, '');
+    var timer = setInterval(function () {
+      dots = (dots + 1) % 4;
+      setStatus(baseMsg + ' ' + Array(dots + 1).join('•'), '');
+    }, 400);
+    return function stop() { clearInterval(timer); };
+  }
+
   function build() {
-    setStatus('Generiram… (ovo može potrajati zbog slika)', '');
+    var btn = $('btnBuild');
+    if (btn) { btn.disabled = true; btn.classList.add('busy'); }
+    var stop = startSpinner('Spremam i generiram web…');
     return save().then(function () {
       return api('/api/build', { method: 'POST' });
     }).then(function () {
+      stop();
       setStatus('Web generiran ✓ — otvaram pregled', 'ok');
       openPreview();
     }).catch(function (e) {
+      stop();
       setStatus('Greška: ' + e.message, 'err');
+    }).finally(function () {
+      if (btn) { btn.disabled = false; btn.classList.remove('busy'); }
     });
   }
 

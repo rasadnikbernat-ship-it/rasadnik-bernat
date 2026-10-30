@@ -70,6 +70,20 @@ body {
 }
 .btn:hover { filter: brightness(0.97); }
 .btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.6; cursor: wait; }
+.btn.busy { position: relative; }
+.btn.busy::after {
+  content: '';
+  display: inline-block;
+  width: 0.8em; height: 0.8em;
+  margin-left: 0.5em;
+  vertical-align: -0.1em;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
 .btn-small { padding: 0.35rem 0.7rem; font-size: 0.82rem; }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-save { background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.35); }
