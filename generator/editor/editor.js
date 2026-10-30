@@ -586,12 +586,29 @@
   }
 
   // ===================== Učitavanje / Spremanje / Build =====================
+  // Sortira listu tako da su najnovije (veći createdAt) gore. Stavke bez
+  // createdAt (stari zapisi) zadržavaju svoj originalni međusobni redoslijed
+  // i idu ISPOD onih s createdAt. Stabilno (ne premješta jednake).
+  function sortByCreated(arr) {
+    return arr
+      .map(function (item, i) { return { item: item, i: i }; })
+      .sort(function (a, b) {
+        var ca = (a.item.createdAt === null || a.item.createdAt === undefined) ? null : Number(a.item.createdAt);
+        var cb = (b.item.createdAt === null || b.item.createdAt === undefined) ? null : Number(b.item.createdAt);
+        if (ca !== null && cb !== null) return cb - ca;       // oba imaju -> noviji gore
+        if (ca !== null) return -1;                           // samo a ima -> a gore
+        if (cb !== null) return 1;                            // samo b ima -> b gore
+        return a.i - b.i;                                     // nijedan -> zadrži redoslijed
+      })
+      .map(function (x) { return x.item; });
+  }
+
   function load() {
     return api('/api/data').then(function (data) {
       state.contact = data.contact || state.contact;
-      state.products = data.products || [];
-      state.services = data.services || [];
-      state.about = data.about || [];
+      state.products = sortByCreated(data.products || []);
+      state.services = sortByCreated(data.services || []);
+      state.about = sortByCreated(data.about || []);
       renderProducts();
       renderServices();
       renderAbout();
@@ -697,9 +714,9 @@
       }).then(function (res) {
         var d = res.data || {};
         state.contact = d.contact || state.contact;
-        state.products = d.products || [];
-        state.services = d.services || [];
-        state.about = d.about || [];
+        state.products = sortByCreated(d.products || []);
+        state.services = sortByCreated(d.services || []);
+        state.about = sortByCreated(d.about || []);
         markDirty();
         renderProducts();
         renderServices();
@@ -735,22 +752,22 @@
 
     // Dodavanje stavki
     $('btnAddProduct').addEventListener('click', function () {
-      state.products.push({ hr_name: '', name: '', hr_description: '', description: '', price: null, anchorPrice: null, imageDir: '', __expand: true });
+      state.products.unshift({ hr_name: '', name: '', hr_description: '', description: '', price: null, anchorPrice: null, imageDir: '', createdAt: Date.now(), __expand: true });
       markDirty();
       renderProducts();
-      window.scrollTo(0, document.body.scrollHeight);
+      window.scrollTo(0, 0);
     });
     $('btnAddService').addEventListener('click', function () {
-      state.services.push({ hr_name: '', name: '', hr_description: '', description: '', imageName: '', __expand: true });
+      state.services.unshift({ hr_name: '', name: '', hr_description: '', description: '', imageName: '', createdAt: Date.now(), __expand: true });
       markDirty();
       renderServices();
-      window.scrollTo(0, document.body.scrollHeight);
+      window.scrollTo(0, 0);
     });
     $('btnAddAbout').addEventListener('click', function () {
-      state.about.push({ hr_title: '', title: '', hr_description: '', description: '', imageName: '', __expand: true });
+      state.about.unshift({ hr_title: '', title: '', hr_description: '', description: '', imageName: '', createdAt: Date.now(), __expand: true });
       markDirty();
       renderAbout();
-      window.scrollTo(0, document.body.scrollHeight);
+      window.scrollTo(0, 0);
     });
 
     // Galerija upload (više slika)

@@ -175,6 +175,7 @@ function normalizeData(parsed) {
       price: numOrNull(p.price),
       anchorPrice: numOrNull(p.anchorPrice),
       imageDir: str(p.imageDir),
+      createdAt: numOrNull(p.createdAt),
     })),
     services: (Array.isArray(parsed.services) ? parsed.services : []).map((s) => ({
       hr_name: str(s.hr_name),
@@ -182,6 +183,7 @@ function normalizeData(parsed) {
       hr_description: str(s.hr_description),
       description: str(s.description),
       imageName: str(s.imageName),
+      createdAt: numOrNull(s.createdAt),
     })),
     about: (Array.isArray(parsed.about) ? parsed.about : []).map((a) => ({
       hr_title: str(a.hr_title),
@@ -189,6 +191,7 @@ function normalizeData(parsed) {
       hr_description: str(a.hr_description),
       description: str(a.description),
       imageName: str(a.imageName),
+      createdAt: numOrNull(a.createdAt),
     })),
   };
 }
