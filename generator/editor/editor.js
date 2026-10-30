@@ -117,6 +117,26 @@
     openModal('modalImage');
   }
 
+  // ---- Sidrena cijena (anchor) ----
+  // Formatira sidreni iznos za prikaz (npr. 75 -> "75,00"). Prazno -> ''.
+  function formatAnchor(v) {
+    if (v === null || v === undefined || String(v).trim() === '') return '';
+    var n = Number(String(v).replace(',', '.'));
+    if (!isNaN(n)) return n.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return String(v);
+  }
+
+  // Modal za promjenu sidrene cijene jednog proizvoda. onDone() re-renderira prikaz.
+  var anchorTarget = null;
+  var anchorOnDone = null;
+  function openAnchorModal(product, onDone) {
+    anchorTarget = product;
+    anchorOnDone = onDone;
+    var input = $('anchorPriceInput');
+    input.value = (product.anchorPrice === null || product.anchorPrice === undefined) ? '' : product.anchorPrice;
+    openModal('modalAnchor');
+  }
+
   // ---- Upload slike ----
   function uploadFile(section, dir, file) {
     return new Promise(function (resolve, reject) {
@@ -174,22 +194,39 @@
     fields.appendChild(textareaField('Opis (HR)', 'hr', p.hr_description, function (v) { p.hr_description = v; markDirty(); }));
     fields.appendChild(textareaField('Description (EN)', 'en', p.description, function (v) { p.description = v; markDirty(); }));
 
-    // Cijena + sidrena cijena. Logika (kao marinWeb): kad promijeniš redovnu
-    // cijenu, ako sidrena JOŠ NE postoji -> postavi je na redovnu; ako postoji -> ne diraj.
-    var anchorInput = null;
+    // Cijena + sidrena cijena (logika kao marinWeb):
+    //  - Redovna cijena je obični input.
+    //  - Sidrena cijena se NE uređuje inline: prikazuje se kao zaključano dugme
+    //    (lock ikona) s formatiranom vrijednošću; klik otvara modal za promjenu.
+    //  - Kad promijeniš redovnu cijenu, ako sidrena JOŠ NE postoji -> postavi je na
+    //    redovnu (prati); ako sidrena već postoji -> ne diraj (zaključana je).
+    var anchorView = el('button', { class: 'anchor-view', type: 'button', title: 'Klikni za promjenu sidrene cijene' });
+    function renderAnchorView() {
+      var v = (p.anchorPrice === null || p.anchorPrice === undefined || String(p.anchorPrice).trim() === '')
+        ? '—' : formatAnchor(p.anchorPrice);
+      anchorView.textContent = v;
+    }
+    renderAnchorView();
+    anchorView.addEventListener('click', function () {
+      openAnchorModal(p, renderAnchorView);
+    });
+
     var priceField = numField('Cijena (€)', p.price, function (v) {
       p.price = v;
       var anchorEmpty = (p.anchorPrice === null || p.anchorPrice === undefined || String(p.anchorPrice).trim() === '');
       if (anchorEmpty) {
         p.anchorPrice = (v === '' || v === null) ? null : v;
-        if (anchorInput) anchorInput.value = (p.anchorPrice === null) ? '' : p.anchorPrice;
+        renderAnchorView();
       }
       syncSummary();
       markDirty();
     });
-    var anchorField = numField('Sidrena cijena (€)', p.anchorPrice, function (v) { p.anchorPrice = v; markDirty(); });
-    anchorInput = anchorField.querySelector('input');
-    var priceRow = el('div', { class: 'price-row' }, [priceField, anchorField]);
+
+    var anchorWrap = el('div', { class: 'field' }, [
+      el('label', { text: 'Sidrena cijena (€)' }),
+      anchorView,
+    ]);
+    var priceRow = el('div', { class: 'price-row' }, [priceField, anchorWrap]);
     fields.appendChild(priceRow);
 
     c.body.appendChild(el('div', { class: 'card-body-grid' }, [imgBlock, fields]));
@@ -739,6 +776,18 @@
         self.value = '';
         closeModal($('modalImage'));
       }).catch(function (err) { setStatus('Upload greška: ' + err.message, 'err'); });
+    });
+
+    // Sidrena cijena (modal): spremi vrijednost u ciljani proizvod
+    $('anchorForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (anchorTarget) {
+        var v = $('anchorPriceInput').value.trim();
+        anchorTarget.anchorPrice = v === '' ? null : v;
+        markDirty();
+        if (anchorOnDone) anchorOnDone();
+      }
+      closeModal($('modalAnchor'));
     });
 
     // Excel

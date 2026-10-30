@@ -200,6 +200,27 @@ textarea { min-height: 2.2rem; }
 .price-row { display: flex; gap: 0.75rem; }
 .price-row .field { flex: 1; }
 
+/* Sidrena cijena: zaključano dugme (lock), klik otvara modal za promjenu. */
+.anchor-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.6rem;
+  background: var(--green-light);
+  border: 1px dashed var(--border);
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  white-space: nowrap;
+  width: 100%;
+  justify-content: flex-start;
+}
+.anchor-view::before { content: '🔒'; font-size: 0.75rem; opacity: 0.6; }
+.anchor-view:hover { border-color: var(--accent); background: #e0edda; }
+
 /* ---------- Image block (products gallery, services/about single) ---------- */
 .img-block { display: flex; flex-direction: column; gap: 0.5rem; }
 .img-dir-field { margin-bottom: 0.25rem; }
@@ -325,6 +346,9 @@ textarea { min-height: 2.2rem; }
 .modal-head h3 { margin: 0; font-size: 1rem; }
 .modal-close { border: none; background: none; font-size: 1.1rem; cursor: pointer; color: var(--muted); }
 .modal-body { padding: 1rem; }
+.modal-body .grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+.modal-body .grid label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+.modal-body .grid label.full { grid-column: 1 / -1; }
 .modal-foot { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 1rem; }
 .image-modal-preview-wrap {
   width: 100%;

@@ -183,6 +183,28 @@
     </section>
   </main>
 
+  <!-- ===================== MODAL: Sidrena cijena ===================== -->
+  <div class="modal-overlay" id="modalAnchor" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalAnchorTitle">
+      <div class="modal-head">
+        <h3 id="modalAnchorTitle">Sidrena cijena</h3>
+        <button class="modal-close" data-close aria-label="Zatvori">✕</button>
+      </div>
+      <form id="anchorForm" class="modal-body">
+        <p class="hint" style="margin-bottom:0.75rem;">Sidrena ("cijena na dan…") je zaključana i prema zadanom jednaka redovnoj cijeni dok je ovdje ne promijeniš.</p>
+        <div class="grid">
+          <label class="full">Iznos (€)
+            <input type="text" id="anchorPriceInput" placeholder="npr. 5 ili prazno">
+          </label>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-save" data-close>Odustani</button>
+          <button type="submit" class="btn btn-primary">Spremi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ===================== MODAL: Image preview / promjena ===================== -->
   <div class="modal-overlay" id="modalImage" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalImageTitle">
