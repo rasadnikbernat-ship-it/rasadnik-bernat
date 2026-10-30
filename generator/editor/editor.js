@@ -197,12 +197,18 @@
     fields.appendChild(textareaField('Opis (HR)', 'hr', p.hr_description, function (v) { p.hr_description = v; markDirty(); }));
     fields.appendChild(textareaField('Description (EN)', 'en', p.description, function (v) { p.description = v; markDirty(); }));
 
-    // Cijena + sidrena cijena (logika kao marinWeb):
+    // Cijena + sidrena cijena (logika kao marinWeb, ispravljeno za inline tipkanje):
     //  - Redovna cijena je obični input.
-    //  - Sidrena cijena se NE uređuje inline: prikazuje se kao zaključano dugme
-    //    (lock ikona) s formatiranom vrijednošću; klik otvara modal za promjenu.
-    //  - Kad promijeniš redovnu cijenu, ako sidrena JOŠ NE postoji -> postavi je na
-    //    redovnu (prati); ako sidrena već postoji -> ne diraj (zaključana je).
+    //  - Sidrena se NE uređuje inline: prikazuje se kao zaključano dugme; klik otvara modal.
+    //  - Dok sidrena NIJE ručno postavljena (kroz modal), ona PRATI redovnu cijenu
+    //    na svaku promjenu (pa tipkanje "1","5" -> sidrena ide 1 pa 15, ne zaključa se rano).
+    //  - Čim se sidrena postavi kroz modal, "zaključa se" (__anchorManual=true) i više ne prati.
+    // Inicijalno stanje: ako je sidrena postavljena i različita od cijene -> smatraj ručnom.
+    if (p.__anchorManual === undefined) {
+      var aEmpty = (p.anchorPrice === null || p.anchorPrice === undefined || String(p.anchorPrice).trim() === '');
+      p.__anchorManual = (!aEmpty && String(p.anchorPrice) !== String(p.price));
+    }
+
     var anchorView = el('button', { class: 'anchor-view', type: 'button', title: 'Klikni za promjenu sidrene cijene' });
     function renderAnchorView() {
       var v = (p.anchorPrice === null || p.anchorPrice === undefined || String(p.anchorPrice).trim() === '')
@@ -211,13 +217,13 @@
     }
     renderAnchorView();
     anchorView.addEventListener('click', function () {
-      openAnchorModal(p, renderAnchorView);
+      openAnchorModal(p, renderAnchorView);   // modal (anchorForm) sam upravlja __anchorManual
     });
 
     var priceField = numField('Cijena (€)', p.price, function (v) {
       p.price = v;
-      var anchorEmpty = (p.anchorPrice === null || p.anchorPrice === undefined || String(p.anchorPrice).trim() === '');
-      if (anchorEmpty) {
+      // Dok sidrena nije ručno postavljena, prati cijenu (uvijek, na svaku znamenku).
+      if (!p.__anchorManual) {
         p.anchorPrice = (v === '' || v === null) ? null : v;
         renderAnchorView();
       }
@@ -809,12 +815,21 @@
       }).catch(function (err) { setStatus('Upload greška: ' + err.message, 'err'); });
     });
 
-    // Sidrena cijena (modal): spremi vrijednost u ciljani proizvod
+    // Sidrena cijena (modal): spremi vrijednost u ciljani proizvod.
+    // Unesena vrijednost -> zaključaj (manual). Prazno -> vrati na "prati cijenu".
     $('anchorForm').addEventListener('submit', function (e) {
       e.preventDefault();
       if (anchorTarget) {
         var v = $('anchorPriceInput').value.trim();
-        anchorTarget.anchorPrice = v === '' ? null : v;
+        if (v === '') {
+          // Prazno -> otključaj: sidrena opet prati redovnu cijenu.
+          anchorTarget.__anchorManual = false;
+          anchorTarget.anchorPrice = (anchorTarget.price === '' || anchorTarget.price === null || anchorTarget.price === undefined)
+            ? null : anchorTarget.price;
+        } else {
+          anchorTarget.__anchorManual = true;   // ručno postavljeno -> zaključaj
+          anchorTarget.anchorPrice = v;
+        }
         markDirty();
         if (anchorOnDone) anchorOnDone();
       }
