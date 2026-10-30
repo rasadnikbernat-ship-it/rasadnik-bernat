@@ -7,6 +7,12 @@
   </Header>
   <Items>
     <Item>
+      <Name>test en</Name>
+      <Price>102.00 €</Price>
+      <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
+      <AnchorPrice>102.00 €</AnchorPrice>
+    </Item>
+    <Item>
       <Name>Sweet chestnut (Castanea sativa), 40-70cm</Name>
       <Price>5.00 €</Price>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
