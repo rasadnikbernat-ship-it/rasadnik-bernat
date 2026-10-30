@@ -181,11 +181,14 @@
       c.title.textContent = p.hr_name || p.name || '(nova sadnica)';
       var price = (p.price === null || p.price === undefined || String(p.price).trim() === '') ? 'na upit' : (p.price + ' €');
       c.subtitle.textContent = price;
+      // Osvježi prikaz predloženog foldera dok imageDir još nije fiksiran uploadom.
+      if (imgBlockSyncDir) imgBlockSyncDir();
     }
-    syncSummary();
 
     // Lijevo: slike (galerija foldera) + imageDir
-    var imgBlock = renderProductImages(p, syncSummary);
+    var imgBlockSyncDir = null;
+    var imgBlock = renderProductImages(p, function (fn) { imgBlockSyncDir = fn; });
+    syncSummary();
 
     // Desno: dvojezična polja + cijene
     var fields = el('div', {});
@@ -233,43 +236,77 @@
     return c.card;
   }
 
-  // Blok slika proizvoda: naziv foldera (imageDir) + mreža thumbova + dodavanje.
+  // Blok slika proizvoda: automatski folder (imageDir) + mreža thumbova + dodavanje.
+  // imageDir se NE unosi ručno — izvodi se iz naziva (slug) i zapisuje pri uploadu.
   function renderProductImages(p, onNameSync) {
     var wrap = el('div', { class: 'img-block' });
 
-    // imageDir input
-    var dirField = el('div', { class: 'field img-dir-field' });
-    dirField.appendChild(el('label', { text: 'Folder slika (imageDir)' }));
-    var dirInput = el('input', { type: 'text', value: p.imageDir || '', placeholder: 'npr. kesten_golog_korjena' });
-    dirField.appendChild(dirInput);
-    wrap.appendChild(dirField);
+    // Info o folderu (read-only). Prikaz trenutnog ili predloženog naziva foldera.
+    var dirInfo = el('div', { class: 'img-dir-info' });
+    function currentDir() {
+      // Postojeći imageDir ima prednost; inače predloži slug iz naziva.
+      return p.imageDir || slugify(p.hr_name || p.name || '');
+    }
+    function renderDirInfo() {
+      var d = currentDir();
+      dirInfo.textContent = d ? ('📁 ' + d) : '📁 (folder se kreira iz naziva sadnice)';
+    }
+    renderDirInfo();
+    wrap.appendChild(dirInfo);
 
     var thumbs = el('div', { class: 'img-thumbs' });
     wrap.appendChild(thumbs);
 
     function loadThumbs() {
       thumbs.innerHTML = '';
-      if (!p.imageDir) {
-        thumbs.appendChild(el('span', { class: 'hint', text: 'Upiši folder pa dodaj slike.' }));
+      var dir = p.imageDir; // učitavamo samo iz stvarno postavljenog foldera
+      if (!dir) {
+        thumbs.appendChild(addImageBtn());
         return;
       }
-      api('/api/images?section=products&dir=' + encodeURIComponent(p.imageDir)).then(function (res) {
+      api('/api/images?section=products&dir=' + encodeURIComponent(dir)).then(function (res) {
         thumbs.innerHTML = '';
         (res.images || []).forEach(function (fn) {
-          thumbs.appendChild(thumbCell('products', p.imageDir, fn, loadThumbs));
+          thumbs.appendChild(thumbCell('products', dir, fn, loadThumbs));
         });
-        thumbs.appendChild(addThumbBtn('products', p.imageDir, loadThumbs, dirInput));
+        thumbs.appendChild(addImageBtn());
       }).catch(function () {
         thumbs.innerHTML = '';
-        thumbs.appendChild(addThumbBtn('products', p.imageDir, loadThumbs, dirInput));
+        thumbs.appendChild(addImageBtn());
       });
     }
 
-    dirInput.addEventListener('input', function () {
-      p.imageDir = dirInput.value.trim();
-      markDirty();
-    });
-    dirInput.addEventListener('change', loadThumbs);
+    // "+" gumb koji pri prvom uploadu automatski postavi imageDir iz naziva.
+    function addImageBtn() {
+      var input = el('input', { type: 'file', accept: 'image/*', multiple: 'multiple', style: 'display:none;' });
+      var btn = el('div', { class: 'img-thumb img-thumb-add', title: 'Dodaj sliku', text: '+' });
+      btn.addEventListener('click', function () {
+        // Ako folder još ne postoji, izvedi ga iz naziva sadnice.
+        if (!p.imageDir) {
+          var slug = slugify(p.hr_name || p.name || '');
+          if (!slug) { setStatus('Prvo upiši naziv sadnice (iz njega se kreira folder slika).', 'err'); return; }
+          p.imageDir = slug;
+          renderDirInfo();
+          markDirty();
+        }
+        input.click();
+      });
+      input.addEventListener('change', function () {
+        var files = Array.prototype.slice.call(input.files || []);
+        if (!files.length) return;
+        setStatus('Učitavam slike…', '');
+        var chain = Promise.resolve();
+        files.forEach(function (f) {
+          chain = chain.then(function () { return uploadFile('products', p.imageDir, f); });
+        });
+        chain.then(function () { input.value = ''; loadThumbs(); setStatus('Slike učitane ✓', 'ok'); })
+          .catch(function (err) { setStatus('Upload greška: ' + err.message, 'err'); });
+      });
+      return el('span', {}, [btn, input]);
+    }
+
+    // Javi roditelju callback za osvježavanje info-prikaza (kad se promijeni naziv).
+    if (typeof onNameSync === 'function') onNameSync(renderDirInfo);
 
     loadThumbs();
     return wrap;
@@ -295,29 +332,6 @@
       openImageModal(section, dir, fn, null);
     });
     return cell;
-  }
-
-  // "+" gumb za dodavanje slike u folder (preko skrivenog file inputa).
-  function addThumbBtn(section, dir, reload, dirInput) {
-    var input = el('input', { type: 'file', accept: 'image/*', multiple: 'multiple', style: 'display:none;' });
-    var btn = el('div', { class: 'img-thumb', style: 'display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--muted);cursor:pointer;', title: 'Dodaj sliku', text: '+' });
-    btn.addEventListener('click', function () {
-      if (dirInput && !dirInput.value.trim()) { setStatus('Prvo upiši naziv foldera (imageDir).', 'err'); return; }
-      input.click();
-    });
-    input.addEventListener('change', function () {
-      var files = Array.prototype.slice.call(input.files || []);
-      if (!files.length) return;
-      setStatus('Učitavam slike…', '');
-      var chain = Promise.resolve();
-      files.forEach(function (f) {
-        chain = chain.then(function () { return uploadFile(section, dir, f); });
-      });
-      chain.then(function () { input.value = ''; reload(); setStatus('Slike učitane ✓', 'ok'); })
-        .catch(function (err) { setStatus('Upload greška: ' + err.message, 'err'); });
-    });
-    var holder = el('span', {}, [btn, input]);
-    return holder;
   }
 
   // ===================== SERVICES =====================
