@@ -44,6 +44,14 @@ body {
 .ed-brand strong { font-size: 1.1rem; }
 .ed-brand span { opacity: 0.85; margin-left: 0.4rem; font-size: 0.85rem; }
 .ed-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.action-group { display: flex; align-items: center; gap: 0.4rem; }
+.action-divider {
+  width: 1px;
+  align-self: stretch;
+  min-height: 24px;
+  background: rgba(255,255,255,0.28);
+  margin: 0 0.15rem;
+}
 .ed-status { font-size: 0.85rem; min-width: 80px; text-align: right; }
 .ed-status.ok { color: #d7f5d0; }
 .ed-status.err { color: #ffd4cd; }
@@ -65,6 +73,8 @@ body {
 .btn-small { padding: 0.35rem 0.7rem; font-size: 0.82rem; }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-save { background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.35); }
+.btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+.btn-ghost:hover { background: rgba(255,255,255,0.14); }
 .btn-build { background: #fff; color: var(--green-dark); font-weight: 600; }
 .btn-preview { background: var(--green-dark); color: #fff; }
 .btn-publish { background: #d98c00; color: #fff; font-weight: 600; }
@@ -133,10 +143,24 @@ body {
   background: var(--green-light);
   border-bottom: 1px solid var(--border);
 }
-.card-title { font-weight: 600; font-size: 0.95rem; }
-.card-head-actions { display: flex; gap: 0.4rem; align-items: center; }
-.card-body { padding: 0.9rem; display: grid; grid-template-columns: 220px 1fr; gap: 1rem; }
-@media (max-width: 720px) { .card-body { grid-template-columns: 1fr; } }
+.card.collapsed .card-head { border-bottom: none; }
+.card-head-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+  user-select: none;
+}
+.chevron { color: var(--green); font-size: 0.8rem; width: 0.9rem; flex: none; }
+.card-title { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-subtitle { color: var(--muted); font-size: 0.82rem; margin-left: 0.5rem; white-space: nowrap; flex: none; }
+.card-head-actions { display: flex; gap: 0.4rem; align-items: center; flex: none; }
+.card-body { padding: 0; }
+.card.collapsed .card-body { display: none; }
+.card-body-grid { padding: 0.9rem; display: grid; grid-template-columns: 220px 1fr; gap: 1rem; }
+@media (max-width: 720px) { .card-body-grid { grid-template-columns: 1fr; } }
 
 .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 @media (max-width: 560px) { .lang-grid { grid-template-columns: 1fr; } }

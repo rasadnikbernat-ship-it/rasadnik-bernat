@@ -41,6 +41,36 @@
   }
   function markDirty() { dirty = true; setStatus('Nespremljene promjene', ''); }
 
+  // Collapsible kartica: head je klikabilan (toggle), body se skriva/prikazuje.
+  // 'subtitle' je opcionalni sažetak koji se vidi u collapsed stanju (npr. cijena/slika).
+  // Vraća { card, head, body, title, subtitle, setExpanded }.
+  function makeCollapsibleCard(titleText, actionNodes, startExpanded) {
+    var chevron = el('span', { class: 'chevron', text: '▸' });
+    var title = el('span', { class: 'card-title', text: titleText });
+    var subtitle = el('span', { class: 'card-subtitle' });
+    var actions = el('div', { class: 'card-head-actions' }, actionNodes || []);
+    // Lijeva (klikabilna) strana headera: chevron + naslov + sažetak.
+    var headLeft = el('div', { class: 'card-head-left' }, [chevron, title, subtitle]);
+    var head = el('div', { class: 'card-head' }, [headLeft, actions]);
+    var body = el('div', { class: 'card-body' });
+    var card = el('div', { class: 'card' + (startExpanded ? '' : ' collapsed') }, [head, body]);
+
+    function setExpanded(on) {
+      if (on) card.classList.remove('collapsed');
+      else card.classList.add('collapsed');
+      chevron.textContent = on ? '▾' : '▸';
+    }
+    setExpanded(!!startExpanded);
+
+    // Klik na lijevi dio headera toggla. Klik na akcije (desno) se ne propagira.
+    headLeft.addEventListener('click', function () {
+      setExpanded(card.classList.contains('collapsed'));
+    });
+    actions.addEventListener('click', function (e) { e.stopPropagation(); });
+
+    return { card: card, head: head, body: body, title: title, subtitle: subtitle, setExpanded: setExpanded };
+  }
+
   function api(path, opts) {
     return fetch(path, opts).then(function (r) {
       return r.json().then(function (j) {
@@ -112,12 +142,12 @@
       return;
     }
     state.products.forEach(function (p, idx) {
-      list.appendChild(renderProductCard(p, idx));
+      list.appendChild(renderProductCard(p, idx, p.__expand === true));
+      delete p.__expand;
     });
   }
 
-  function renderProductCard(p, idx) {
-    var title = el('span', { class: 'card-title', text: p.hr_name || p.name || '(nova sadnica)' });
+  function renderProductCard(p, idx, startExpanded) {
     var delBtn = el('button', { class: 'row-del', type: 'button', title: 'Obriši sadnicu', text: '🗑' });
     delBtn.addEventListener('click', function () {
       if (!confirm('Obrisati sadnicu "' + (p.hr_name || p.name || '') + '"?')) return;
@@ -125,23 +155,45 @@
       markDirty();
       renderProducts();
     });
-    var head = el('div', { class: 'card-head' }, [title, el('div', { class: 'card-head-actions' }, [delBtn])]);
+
+    var c = makeCollapsibleCard(p.hr_name || p.name || '(nova sadnica)', [delBtn], startExpanded);
+    function syncSummary() {
+      c.title.textContent = p.hr_name || p.name || '(nova sadnica)';
+      var price = (p.price === null || p.price === undefined || String(p.price).trim() === '') ? 'na upit' : (p.price + ' €');
+      c.subtitle.textContent = price;
+    }
+    syncSummary();
 
     // Lijevo: slike (galerija foldera) + imageDir
-    var imgBlock = renderProductImages(p, function () { title.textContent = p.hr_name || p.name || '(nova sadnica)'; });
+    var imgBlock = renderProductImages(p, syncSummary);
 
     // Desno: dvojezična polja + cijene
     var fields = el('div', {});
-    fields.appendChild(textField('Naziv (HR)', 'hr', p.hr_name, function (v) { p.hr_name = v; title.textContent = p.hr_name || p.name || '(nova sadnica)'; markDirty(); }));
-    fields.appendChild(textField('Name (EN)', 'en', p.name, function (v) { p.name = v; markDirty(); }));
+    fields.appendChild(textField('Naziv (HR)', 'hr', p.hr_name, function (v) { p.hr_name = v; syncSummary(); markDirty(); }));
+    fields.appendChild(textField('Name (EN)', 'en', p.name, function (v) { p.name = v; syncSummary(); markDirty(); }));
     fields.appendChild(textareaField('Opis (HR)', 'hr', p.hr_description, function (v) { p.hr_description = v; markDirty(); }));
     fields.appendChild(textareaField('Description (EN)', 'en', p.description, function (v) { p.description = v; markDirty(); }));
 
-    var priceRow = buildPriceRow(p);
+    // Cijena + sidrena cijena. Logika (kao marinWeb): kad promijeniš redovnu
+    // cijenu, ako sidrena JOŠ NE postoji -> postavi je na redovnu; ako postoji -> ne diraj.
+    var anchorInput = null;
+    var priceField = numField('Cijena (€)', p.price, function (v) {
+      p.price = v;
+      var anchorEmpty = (p.anchorPrice === null || p.anchorPrice === undefined || String(p.anchorPrice).trim() === '');
+      if (anchorEmpty) {
+        p.anchorPrice = (v === '' || v === null) ? null : v;
+        if (anchorInput) anchorInput.value = (p.anchorPrice === null) ? '' : p.anchorPrice;
+      }
+      syncSummary();
+      markDirty();
+    });
+    var anchorField = numField('Sidrena cijena (€)', p.anchorPrice, function (v) { p.anchorPrice = v; markDirty(); });
+    anchorInput = anchorField.querySelector('input');
+    var priceRow = el('div', { class: 'price-row' }, [priceField, anchorField]);
     fields.appendChild(priceRow);
 
-    var body = el('div', { class: 'card-body' }, [imgBlock, fields]);
-    return el('div', { class: 'card' }, [head, body]);
+    c.body.appendChild(el('div', { class: 'card-body-grid' }, [imgBlock, fields]));
+    return c.card;
   }
 
   // Blok slika proizvoda: naziv foldera (imageDir) + mreža thumbova + dodavanje.
@@ -240,12 +292,12 @@
       return;
     }
     state.services.forEach(function (s, idx) {
-      list.appendChild(renderServiceCard(s, idx));
+      list.appendChild(renderServiceCard(s, idx, s.__expand === true));
+      delete s.__expand;
     });
   }
 
-  function renderServiceCard(s, idx) {
-    var title = el('span', { class: 'card-title', text: s.hr_name || s.name || '(nova usluga)' });
+  function renderServiceCard(s, idx, startExpanded) {
     var delBtn = el('button', { class: 'row-del', type: 'button', title: 'Obriši uslugu', text: '🗑' });
     delBtn.addEventListener('click', function () {
       if (!confirm('Obrisati uslugu "' + (s.hr_name || s.name || '') + '"?')) return;
@@ -253,22 +305,23 @@
       markDirty();
       renderServices();
     });
-    var head = el('div', { class: 'card-head' }, [title, el('div', { class: 'card-head-actions' }, [delBtn])]);
+
+    var c = makeCollapsibleCard(s.hr_name || s.name || '(nova usluga)', [delBtn], startExpanded);
+    function syncTitle() { c.title.textContent = s.hr_name || s.name || '(nova usluga)'; }
 
     var imgBlock = singleImageBlock('services', '', s.imageName, function (fn) {
       s.imageName = fn || '';
       markDirty();
-      renderServices();
     });
 
     var fields = el('div', {});
-    fields.appendChild(textField('Naziv (HR)', 'hr', s.hr_name, function (v) { s.hr_name = v; title.textContent = s.hr_name || s.name || '(nova usluga)'; markDirty(); }));
+    fields.appendChild(textField('Naziv (HR)', 'hr', s.hr_name, function (v) { s.hr_name = v; syncTitle(); markDirty(); }));
     fields.appendChild(textField('Name (EN)', 'en', s.name, function (v) { s.name = v; markDirty(); }));
     fields.appendChild(textareaField('Opis (HR)', 'hr', s.hr_description, function (v) { s.hr_description = v; markDirty(); }));
     fields.appendChild(textareaField('Description (EN)', 'en', s.description, function (v) { s.description = v; markDirty(); }));
 
-    var body = el('div', { class: 'card-body' }, [imgBlock, fields]);
-    return el('div', { class: 'card' }, [head, body]);
+    c.body.appendChild(el('div', { class: 'card-body-grid' }, [imgBlock, fields]));
+    return c.card;
   }
 
   // ===================== ABOUT =====================
@@ -280,12 +333,12 @@
       return;
     }
     state.about.forEach(function (a, idx) {
-      list.appendChild(renderAboutCard(a, idx));
+      list.appendChild(renderAboutCard(a, idx, a.__expand === true));
+      delete a.__expand;
     });
   }
 
-  function renderAboutCard(a, idx) {
-    var title = el('span', { class: 'card-title', text: a.hr_title || a.title || '(nova sekcija)' });
+  function renderAboutCard(a, idx, startExpanded) {
     var delBtn = el('button', { class: 'row-del', type: 'button', title: 'Obriši sekciju', text: '🗑' });
     delBtn.addEventListener('click', function () {
       if (!confirm('Obrisati sekciju "' + (a.hr_title || a.title || '') + '"?')) return;
@@ -293,22 +346,23 @@
       markDirty();
       renderAbout();
     });
-    var head = el('div', { class: 'card-head' }, [title, el('div', { class: 'card-head-actions' }, [delBtn])]);
+
+    var c = makeCollapsibleCard(a.hr_title || a.title || '(nova sekcija)', [delBtn], startExpanded);
+    function syncTitle() { c.title.textContent = a.hr_title || a.title || '(nova sekcija)'; }
 
     var imgBlock = singleImageBlock('about', '', a.imageName, function (fn) {
       a.imageName = fn || '';
       markDirty();
-      renderAbout();
     });
 
     var fields = el('div', {});
-    fields.appendChild(textField('Naslov (HR)', 'hr', a.hr_title, function (v) { a.hr_title = v; title.textContent = a.hr_title || a.title || '(nova sekcija)'; markDirty(); }));
+    fields.appendChild(textField('Naslov (HR)', 'hr', a.hr_title, function (v) { a.hr_title = v; syncTitle(); markDirty(); }));
     fields.appendChild(textField('Title (EN)', 'en', a.title, function (v) { a.title = v; markDirty(); }));
     fields.appendChild(textareaField('Opis (HR)', 'hr', a.hr_description, function (v) { a.hr_description = v; markDirty(); }));
     fields.appendChild(textareaField('Description (EN)', 'en', a.description, function (v) { a.description = v; markDirty(); }));
 
-    var body = el('div', { class: 'card-body' }, [imgBlock, fields]);
-    return el('div', { class: 'card' }, [head, body]);
+    c.body.appendChild(el('div', { class: 'card-body-grid' }, [imgBlock, fields]));
+    return c.card;
   }
 
   // Blok s jednom slikom (services/about): klik otvara modal za promjenu.
@@ -630,19 +684,19 @@
 
     // Dodavanje stavki
     $('btnAddProduct').addEventListener('click', function () {
-      state.products.push({ hr_name: '', name: '', hr_description: '', description: '', price: null, anchorPrice: null, imageDir: '' });
+      state.products.push({ hr_name: '', name: '', hr_description: '', description: '', price: null, anchorPrice: null, imageDir: '', __expand: true });
       markDirty();
       renderProducts();
       window.scrollTo(0, document.body.scrollHeight);
     });
     $('btnAddService').addEventListener('click', function () {
-      state.services.push({ hr_name: '', name: '', hr_description: '', description: '', imageName: '' });
+      state.services.push({ hr_name: '', name: '', hr_description: '', description: '', imageName: '', __expand: true });
       markDirty();
       renderServices();
       window.scrollTo(0, document.body.scrollHeight);
     });
     $('btnAddAbout').addEventListener('click', function () {
-      state.about.push({ hr_title: '', title: '', hr_description: '', description: '', imageName: '' });
+      state.about.push({ hr_title: '', title: '', hr_description: '', description: '', imageName: '', __expand: true });
       markDirty();
       renderAbout();
       window.scrollTo(0, document.body.scrollHeight);

@@ -174,9 +174,6 @@ function normalizeData(parsed) {
       description: str(p.description),
       price: numOrNull(p.price),
       anchorPrice: numOrNull(p.anchorPrice),
-      // anchorLocked: ako je true, sidrena cijena je "zaključana" i NE prati redovnu
-      // cijenu. Ako je false/izostavljeno, sidrena prati redovnu cijenu u editoru.
-      anchorLocked: p.anchorLocked === true,
       imageDir: str(p.imageDir),
     })),
     services: (Array.isArray(parsed.services) ? parsed.services : []).map((s) => ({
@@ -493,11 +490,6 @@ async function handleImportXlsx(req, res) {
       about: read('about', internalHeaders.about),
     };
     const data = normalizeData(parsed);
-    // Pri uvozu: ako sidrena cijena postoji i razlikuje se od redovne, zaključaj je
-    // (eksplicitno upisana vrijednost u Excelu). Inače ostaje otključana (prati cijenu).
-    data.products.forEach((p) => {
-      p.anchorLocked = p.anchorPrice !== null && p.anchorPrice !== p.price;
-    });
     sendJson(res, 200, {
       ok: true,
       data,
@@ -933,7 +925,44 @@ function ensureDataJson() {
   }
 }
 
-ensureDeps().then(() => {
+/**
+ * Na pokretanju: povuci najnovije s gita (git pull --rebase --autostash) da
+ * urednik kreće od zadnje verzije i izbjegne nepotrebne konflikte pri objavi.
+ *
+ * Tih i ne-blokirajući za editor: ako nije git repo, nema origin-a, nema mreže
+ * ili dođe do konflikta — ispiše upozorenje, prekine eventualni rebase i
+ * svejedno pokrene editor (ne smije spriječiti rad lokalno).
+ */
+async function syncFromGit() {
+  try {
+    const inside = await runGit(['rev-parse', '--is-inside-work-tree'], ROOT);
+    if (inside.code !== 0 || inside.stdout.trim() !== 'true') return; // nije git repo
+
+    const remotes = await runGit(['remote'], ROOT);
+    if (!remotes.stdout.split(/\s+/).includes('origin')) {
+      console.log('ℹ Nema git remote "origin" — preskačem pull.');
+      return;
+    }
+
+    const branchRes = await runGit(['rev-parse', '--abbrev-ref', 'HEAD'], ROOT);
+    const branch = branchRes.stdout.trim() || 'main';
+
+    console.log(`Povlačim najnovije s gita (pull --rebase origin ${branch})…`);
+    const pull = await runGit(['pull', '--rebase', '--autostash', 'origin', branch], ROOT);
+    if (pull.code === 0) {
+      console.log('✓ Ažurirano s gita.');
+    } else {
+      // Prekini rebase da repo ostane u sigurnom stanju.
+      await runGit(['rebase', '--abort'], ROOT);
+      console.warn('⚠ git pull --rebase nije uspio (konflikt ili nema pristupa). Rebase prekinut, editor se svejedno pokreće. Riješi ručno prije objave ako treba.');
+    }
+  } catch (e) {
+    console.warn(`⚠ Preskačem git pull (${e.message}).`);
+  }
+}
+
+ensureDeps().then(async () => {
+  await syncFromGit();
   ensureDataJson();
   return start();
 });

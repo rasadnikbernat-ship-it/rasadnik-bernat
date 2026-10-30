@@ -13,15 +13,28 @@
     </div>
     <div class="ed-actions">
       <span id="status" class="ed-status" aria-live="polite"></span>
-      <button id="btnExportXlsx" class="btn btn-save" type="button" title="Izvezi sve podatke (sadnice, usluge, o nama, kontakt) u data.xlsx">⬇ Excel</button>
-      <label class="btn btn-save xlsx-import-label" title="Uvezi data.xlsx (zamjenjuje sve podatke)">
-        ⬆ Excel
-        <input type="file" id="importXlsxFile" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none;">
-      </label>
-      <button id="btnSave" class="btn btn-save">Spremi</button>
-      <button id="btnBuild" class="btn btn-build">Spremi i generiraj web</button>
-      <button id="btnPreview" class="btn btn-preview">Pregledaj stranicu ↗</button>
-      <button id="btnPublish" class="btn btn-publish" title="Generiraj web i objavi promjene (git push)">⬆ Objavi (Publish)</button>
+
+      <div class="action-group" role="group" aria-label="Excel">
+        <button id="btnExportXlsx" class="btn btn-ghost" type="button" title="Izvezi sve podatke (sadnice, usluge, o nama, kontakt) u data.xlsx">⬇ Izvezi</button>
+        <label class="btn btn-ghost xlsx-import-label" title="Uvezi data.xlsx (zamjenjuje sve podatke)">
+          ⬆ Uvezi
+          <input type="file" id="importXlsxFile" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none;">
+        </label>
+      </div>
+
+      <span class="action-divider" aria-hidden="true"></span>
+
+      <div class="action-group" role="group" aria-label="Sadržaj">
+        <button id="btnSave" class="btn btn-save">Spremi</button>
+        <button id="btnBuild" class="btn btn-build">Generiraj web</button>
+        <button id="btnPreview" class="btn btn-preview">Pregledaj ↗</button>
+      </div>
+
+      <span class="action-divider" aria-hidden="true"></span>
+
+      <div class="action-group" role="group" aria-label="Objava">
+        <button id="btnPublish" class="btn btn-publish" title="Generiraj web i objavi promjene (git push)">⬆ Objavi</button>
+      </div>
     </div>
   </header>
 

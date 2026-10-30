@@ -50,21 +50,15 @@ function workbookToData(wb) {
 
   const products = read('products', SHEETS.products)
     .filter((r) => str(r.hr_name) || str(r.name))
-    .map((r) => {
-      const price = numOrNull(r.price);
-      const anchorPrice = numOrNull(r.anchorPrice);
-      return {
-        hr_name: str(r.hr_name),
-        name: str(r.name),
-        hr_description: str(r.hr_description),
-        description: str(r.description),
-        price: price,
-        anchorPrice: anchorPrice,
-        // Zaključaj sidrenu ako je upisana i razlikuje se od redovne cijene.
-        anchorLocked: anchorPrice !== null && anchorPrice !== price,
-        imageDir: str(r.imageDir),
-      };
-    });
+    .map((r) => ({
+      hr_name: str(r.hr_name),
+      name: str(r.name),
+      hr_description: str(r.hr_description),
+      description: str(r.description),
+      price: numOrNull(r.price),
+      anchorPrice: numOrNull(r.anchorPrice),
+      imageDir: str(r.imageDir),
+    }));
 
   const services = read('services', SHEETS.services)
     .filter((r) => str(r.hr_name) || str(r.name))
