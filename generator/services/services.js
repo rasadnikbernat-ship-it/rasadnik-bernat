@@ -1,5 +1,7 @@
 const { readFile } = require('node:fs/promises');
 const path = require('node:path');
+const { getDefaultImagePath } = require('../common/defaults');
+const { escapeHtml } = require('../common/site');
 
 const servicesTemplatePath = path.join(__dirname, './templates/services.html');
 const serviceTemplatePath = path.join(__dirname, './templates/service.html');
@@ -14,8 +16,8 @@ const SERVICE_COL = [
 async function mapServicesTemplate(html, services) {
   const serviceHTMLs = await getServiceHTMLs(services);
   const servicesTemplate = await readFile(servicesTemplatePath, { encoding: 'utf8' });
-  const servicesHTML = servicesTemplate.replaceAll('{{services}}', serviceHTMLs.join('\n'));
-  html = html.replaceAll('{{services.html}}', servicesHTML);
+  const servicesHTML = servicesTemplate.replaceAll('{{services}}', () => serviceHTMLs.join('\n'));
+  html = html.replaceAll('{{services.html}}', () => servicesHTML);
   return html;
 }
 
@@ -40,15 +42,17 @@ async function getTemplates() {
 function getServiceHTML(serviceCol, item, htmlTemplates) {
   const { serviceTemplate } = htmlTemplates;
   return serviceTemplate
-    .replaceAll('{{service-col}}', serviceCol)
-    .replaceAll('{{id}}', item.id)
-    .replaceAll('{{name}}', item.hr_name)
-    .replaceAll('{{image}}', getImagePath(item.imageName))
-    .replaceAll('{{imageAlt}}', item.imageAlt)
-    .replaceAll('{{description}}', item.hr_description);
+    .replaceAll('{{service-col}}', () => serviceCol)
+    .replaceAll('{{id}}', () => item.id)
+    .replaceAll('{{name}}', () => escapeHtml(item.hr_name))
+    .replaceAll('{{image}}', () => escapeHtml(getImagePath(item.imageName)))
+    .replaceAll('{{imageAlt}}', () => escapeHtml(item.imageName ? item.imageAlt : (item.hr_name || '')))
+    .replaceAll('{{description}}', () => escapeHtml(item.hr_description));
 }
 
 function getImagePath(name) {
+  // Usluga bez slike dobiva opći placeholder.
+  if (!name) return getDefaultImagePath('services');
   return `${imagesPath}/${name}`;
 }
 

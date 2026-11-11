@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
 const config = require('../../config.json');
+const { getDefaultImageRel } = require('../common/defaults');
 
 function generatePriceList(items) {
   try {
@@ -18,10 +19,29 @@ function generatePriceList(items) {
   }
 }
 
-function generatePdf(items, lang, loc) {
-  const filePath = path.join(__dirname, '../../docs/', `${loc.fileName}.pdf`);
+function soldOutLabel(lang, loc) {
+  return (loc.item && loc.item.soldOut) || (lang === 'hr' ? 'Rasprodano' : 'Sold out');
+}
 
-  const doc = new PDFDocument({ margin: 50 });
+// Skrati tekst (trenutni font) da stane u zadanu širinu.
+function fitText(doc, text, maxWidth) {
+  if (doc.widthOfString(text) <= maxWidth) return text;
+  let t = text;
+  while (t.length > 1 && doc.widthOfString(t + '…') > maxWidth) t = t.slice(0, -1);
+  return t.trimEnd() + '…';
+}
+
+// Ime datoteke cjenika u docs/ (bez putanje; ručno pokvaren config ne smije pisati izvan docs/).
+function docBaseName(loc, lang) {
+  const n = String((loc && loc.fileName) || '').trim();
+  if (/^[\p{L}\p{N}_\- ]{1,64}$/u.test(n)) return n;
+  return lang === 'hr' ? 'Cjenik' : 'PriceList';
+}
+
+function generatePdf(items, lang, loc) {
+  const filePath = path.join(__dirname, '../../docs/', `${docBaseName(loc, lang)}.pdf`);
+
+  const doc = new PDFDocument({ margin: 50, info: { CreationDate: new Date(0), ModDate: new Date(0) } });
   doc.pipe(fs.createWriteStream(filePath));
 
   const fontPath = path.join(__dirname, '../fonts/Roboto-Regular.ttf');
@@ -38,9 +58,9 @@ function generatePdf(items, lang, loc) {
   const currentFont = fontExists ? 'CustomFont' : 'Helvetica';
   const currentBoldFont = fontExists ? 'CustomFont-Bold' : 'Helvetica-Bold';
 
-  const logoPath = path.join(__dirname, '../../images/logo.png');
+  const logoPath = path.join(__dirname, '../../', getDefaultImageRel('logo'));
   if (fs.existsSync(logoPath)) {
-    doc.image(logoPath, 50, 40, { width: 80 });
+    try { doc.image(logoPath, 50, 40, { width: 80 }); } catch (e) { console.warn('Logo se ne može ubaciti u PDF:', e.message); }
   }
 
   doc.font(currentBoldFont).fontSize(20).text(loc.title, 50, 130, { align: 'center', width: 495 });
@@ -68,9 +88,26 @@ function generatePdf(items, lang, loc) {
     let formattedAnchor = item.anchorPrice ? `${item.anchorPrice} ${config.priceList.currency}` : '-';
     const name = lang === 'hr' ? item.hr_name : item.name;
 
-    doc.fontSize(10);
+    doc.fontSize(10).fillColor(item.soldOut === true ? '#999999' : '#000000');
 
-    doc.text(name, startX, currentY, { width: colWidths[0] });
+    // Naziv u jednom retku; predugi se skraćuje s "…" da ne prelazi u stupce cijena (ni oznaka "Rasprodano").
+    let label = '';
+    let labelWidth = 0;
+    if (item.soldOut === true) {
+      label = `  ${soldOutLabel(lang, loc)}`;
+      doc.font(currentBoldFont).fontSize(8);
+      labelWidth = doc.widthOfString(label);
+      doc.font(currentFont).fontSize(10);
+    }
+    const fitName = fitText(doc, String(name || ''), colWidths[0] - labelWidth - 6);
+    doc.text(fitName, startX, currentY, { width: colWidths[0], lineBreak: false });
+    if (item.soldOut === true) {
+      // Oznaka "Rasprodano" odmah iza naziva (crveno, manjim fontom).
+      const nameWidth = doc.widthOfString(fitName);
+      doc.font(currentBoldFont).fontSize(8).fillColor('#c0392b');
+      doc.text(label, startX + nameWidth, currentY + 1.5, { lineBreak: false });
+      doc.font(currentFont).fontSize(10).fillColor('#999999');
+    }
 
     doc.text(formattedAnchor, startX + colWidths[0], currentY, { width: colWidths[1], align: 'right' });
 
@@ -94,7 +131,7 @@ function generatePdf(items, lang, loc) {
 }
 
 function generateXML(items, lang, loc) {
-  const filePath = path.join(__dirname, '../../docs/', `${loc.fileName}.xml`);
+  const filePath = path.join(__dirname, '../../docs/', `${docBaseName(loc, lang)}.xml`);
 
   const escapeXml = (unsafe) => {
     if (!unsafe) return '';
@@ -118,11 +155,14 @@ function generateXML(items, lang, loc) {
   xmlContent += `  <Items>\n`;
   items.forEach(item => {
     const name = lang === 'hr' ? item.hr_name : item.name;
+    const soldOut = item.soldOut === true;
     const formattedPrice = item.price ? `${item.price} ${config.priceList.currency}` : loc.item.priceOnRequest;
 
     xmlContent += `    <Item>\n`;
     xmlContent += `      <Name>${escapeXml(name)}</Name>\n`;
     xmlContent += `      <Price>${escapeXml(formattedPrice)}</Price>\n`;
+    xmlContent += `      <SoldOut>${soldOut}</SoldOut>\n`;
+    if (soldOut) xmlContent += `      <SoldOutLabel>${escapeXml(soldOutLabel(lang, loc))}</SoldOutLabel>\n`;
 
     if (item.anchorPrice) {
       const formattedAnchor = `${item.anchorPrice} ${config.priceList.currency}`;

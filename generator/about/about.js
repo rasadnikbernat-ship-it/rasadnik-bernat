@@ -1,5 +1,7 @@
 const { readFile } = require('node:fs/promises');
 const path = require('node:path');
+const { getDefaultImagePath } = require('../common/defaults');
+const { escapeHtml } = require('../common/site');
 
 const aboutTemplatePath = path.join(__dirname, './templates/about.html');
 const aboutSlideBtnTemplatePath = path.join(__dirname, './templates/about-item-slide-btn.html');
@@ -10,9 +12,9 @@ async function mapAboutTemplate(html, about) {
   const { items, buttons } = await getAboutItemAndBtnHTMLs(about);
   const aboutTemplate = await readFile(aboutTemplatePath, { encoding: 'utf8' });
   const aboutHTML = aboutTemplate
-    .replaceAll('{{buttons}}', buttons.join('\n'))
-    .replaceAll('{{items}}', items.join('\n'));
-  html = html.replaceAll('{{about.html}}', aboutHTML);
+    .replaceAll('{{buttons}}', () => buttons.join('\n'))
+    .replaceAll('{{items}}', () => items.join('\n'));
+  html = html.replaceAll('{{about.html}}', () => aboutHTML);
   return html;
 }
 
@@ -40,24 +42,26 @@ async function getTemplates() {
 
 function getBtn(item, slide, template) {
   return template
-    .replaceAll('{{id}}', item.id)
-    .replaceAll('{{slide}}', slide)
-    .replaceAll('{{productAriaLabel}}', item.imageAlt)
-    .replaceAll('{{active}}', slide === 0 ? 'class="active" aria-current="true"' : '');
+    .replaceAll('{{id}}', () => item.id)
+    .replaceAll('{{slide}}', () => slide)
+    .replaceAll('{{productAriaLabel}}', () => escapeHtml(item.imageName ? item.imageAlt : (item.hr_title || '')))
+    .replaceAll('{{active}}', () => slide === 0 ? 'class="active" aria-current="true"' : '');
 }
 
 function getItem(item, slide, template) {
   return template
-    .replaceAll('{{id}}', item.id)
-    .replaceAll('{{title}}', item.hr_title)
-    .replaceAll('{{description}}', item.hr_description)
-    .replaceAll('{{image}}', getImagePath(item.imageName))
-    .replaceAll('{{alt}}', item.imageAlt)
-    .replaceAll('{{active}}', slide === 0 ? 'active' : '')
-    .replaceAll('{{reverse}}', (slide + 1) % 2 === 0 ? 'flex-row-reverse' : '');
+    .replaceAll('{{id}}', () => item.id)
+    .replaceAll('{{title}}', () => escapeHtml(item.hr_title))
+    .replaceAll('{{description}}', () => escapeHtml(item.hr_description))
+    .replaceAll('{{image}}', () => escapeHtml(getImagePath(item.imageName)))
+    .replaceAll('{{alt}}', () => escapeHtml(item.imageName ? item.imageAlt : (item.hr_title || '')))
+    .replaceAll('{{active}}', () => slide === 0 ? 'active' : '')
+    .replaceAll('{{reverse}}', () => (slide + 1) % 2 === 0 ? 'flex-row-reverse' : '');
 }
 
 function getImagePath(name) {
+  // Sekcija bez slike dobiva opći placeholder.
+  if (!name) return getDefaultImagePath('about');
   return `${imagesPath}/${name}`;
 }
 

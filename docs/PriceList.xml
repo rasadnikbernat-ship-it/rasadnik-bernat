@@ -9,48 +9,56 @@
     <Item>
       <Name>Sweet chestnut (Castanea sativa), 40-70cm</Name>
       <Price>5.00 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>5.00 €</AnchorPrice>
     </Item>
     <Item>
       <Name>Sweet chestnut (Castanea sativa), 70-100cm</Name>
       <Price>7.00 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>7.00 €</AnchorPrice>
     </Item>
     <Item>
       <Name>Red Oak ( Quercus rubra), 40-60cm</Name>
       <Price>5.00 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>5.00 €</AnchorPrice>
     </Item>
     <Item>
       <Name>Red Oak ( Quercus rubra), 70-100cm</Name>
       <Price>9.00 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>9.00 €</AnchorPrice>
     </Item>
     <Item>
       <Name>Red Oak ( Quercus rubra), 100-140cm</Name>
       <Price>15.00 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>15.00 €</AnchorPrice>
     </Item>
     <Item>
       <Name>Pedunculate (Quercus robur)</Name>
       <Price>1.20 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>1.20 €</AnchorPrice>
     </Item>
     <Item>
       <Name>Sessile oak (Quercus petraea)</Name>
       <Price>1.20 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>1.20 €</AnchorPrice>
     </Item>
     <Item>
       <Name>Sessile oak (Quercus petraea)</Name>
       <Price>4.00 €</Price>
+      <SoldOut>false</SoldOut>
       <AnchorPriceLabel>Price as of Sep 10, 2026</AnchorPriceLabel>
       <AnchorPrice>4.00 €</AnchorPrice>
     </Item>

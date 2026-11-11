@@ -1,6 +1,9 @@
-<div class="col-md-3 col-sm-4 col-6 product">
-  <div class="card box-shadow h-100 product-card" data-bs-toggle="modal" data-bs-target="#modal-product-{{id}}">
-    <img loading="lazy" class="card-img-top" alt="{{imageTopAlt}}" src="{{imageTop}}">
+<div class="col product">
+  <div class="card box-shadow h-100 product-card{{soldOutClass}}" data-bs-toggle="modal" data-bs-target="#modal-product-{{id}}">
+    <div class="product-img-wrap">
+      <img loading="lazy" class="card-img-top" alt="{{imageTopAlt}}" src="{{imageTop}}">
+      {{soldOut.html}}
+    </div>
     <div class="card-body">
       <h4 class="card-text" data-i18n="{{id}}.name">{{name}}</h4>
       {{price.html}}

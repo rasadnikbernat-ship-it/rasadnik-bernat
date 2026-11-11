@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Usluge">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e6f1e2"/>
+      <stop offset="1" stop-color="#cfe3c9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <!-- tlo -->
+  <path d="M0 230 Q100 205 200 225 T400 215 V300 H0Z" fill="#7a5a3a"/>
+  <path d="M0 245 Q120 225 220 240 T400 232 V300 H0Z" fill="#5f452b"/>
+  <!-- sadnica -->
+  <path d="M200 228 V150" stroke="#4d3722" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="200" cy="120" rx="46" ry="42" fill="#2f6b35"/>
+  <ellipse cx="172" cy="140" rx="28" ry="24" fill="#3c8243"/>
+  <ellipse cx="228" cy="140" rx="28" ry="24" fill="#244f28"/>
+  <ellipse cx="200" cy="96" rx="26" ry="22" fill="#3c8243"/>
+  <!-- lopata -->
+  <g transform="rotate(22 305 175)">
+    <rect x="300" y="82" width="10" height="100" rx="4" fill="#8b5e34"/>
+    <rect x="292" y="76" width="26" height="9" rx="4" fill="#8b5e34"/>
+    <path d="M286 182 H324 L318 232 Q305 246 292 232Z" fill="#8f9aa3"/>
+    <path d="M296 190 V228" stroke="#b7c0c7" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- zupčanik -->
+  <g transform="translate(88 100)" fill="#244f28">
+    <circle r="22"/>
+    <g id="t"><rect x="-5" y="-33" width="10" height="12" rx="2"/></g>
+    <use href="#t" transform="rotate(45)"/><use href="#t" transform="rotate(90)"/>
+    <use href="#t" transform="rotate(135)"/><use href="#t" transform="rotate(180)"/>
+    <use href="#t" transform="rotate(225)"/><use href="#t" transform="rotate(270)"/>
+    <use href="#t" transform="rotate(315)"/>
+    <circle r="9" fill="#e6f1e2"/>
+  </g>
+</svg>

@@ -2,20 +2,20 @@
   <nav class="navbar navbar-expand-md fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="./images/logo.png" alt="RasadnikBernat" width="48" height="48"/>
+        <img src="{{img:logo}}" alt="RasadnikBernat" width="48" height="48"/>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item"><a class="nav-link" href="#products" data-i18n="nav.products">Sadnice</a></li>
-          <li class="nav-item"><a class="nav-link" href="#services" data-i18n="nav.services">Usluge</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about" data-i18n="nav.about">O nama</a></li>
-          <li class="nav-item"><a class="nav-link" href="#gallery" data-i18n="nav.gallery">Galerija</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+          <li class="nav-item"><a class="nav-link" href="#products" data-i18n="nav.products">{{t:nav.products}}</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services" data-i18n="nav.services">{{t:nav.services}}</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about" data-i18n="nav.about">{{t:nav.about}}</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery" data-i18n="nav.gallery">{{t:nav.gallery}}</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="nav.contact">{{t:nav.contact}}</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="priceListDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="nav.priceList">Cjenik</a>
+            <a class="nav-link dropdown-toggle" href="#" id="priceListDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="nav.priceList">{{t:nav.priceList}}</a>
             <ul class="dropdown-menu" aria-labelledby="priceListDropdown">
               <li><a class="dropdown-item" id="price-list-pdf" href="#" target="_blank" rel="noopener noreferrer">PDF Cjenik</a></li>
               <li><a class="dropdown-item" id="price-list-xml" href="#" target="_blank" rel="noopener noreferrer">XML Cjenik</a></li>
@@ -24,9 +24,9 @@
         </ul>
         <ul class="navbar-nav navbar-right">
           <li class="nav-item">
-            <a id='hr' class="nav-link nav-link-language">HR</a>
-            <span class="vd">|</span>
-            <a id='en' class="nav-link nav-link-language">EN</a>
+            <a id='hr' class="nav-link nav-link-language" href="#" role="button" lang="hr" aria-label="Hrvatski" aria-pressed="true">HR</a>
+            <span class="vd" aria-hidden="true">|</span>
+            <a id='en' class="nav-link nav-link-language" href="#" role="button" lang="en" aria-label="English" aria-pressed="false">EN</a>
           </li>
         </ul>
       </div>

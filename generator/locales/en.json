@@ -10,7 +10,8 @@
     "priceList": "Price list"
   },
   "product": {
-    "details": "Details"
+    "details": "Details",
+    "soldOut": "Sold out"
   },
   "carousel" : {
     "control": {
@@ -18,6 +19,8 @@
       "next": "Next"
     }
   },
+  "footer": "© 2026 RasadnikBernat.",
+  "cookieAccept": "OK",
   "followUs": "Follow us:",
   "comingSoon": "Coming soon...",
   "cookie-banner": "This website uses essential cookies and Google Maps to ensure proper functionality and display of content. By continuing to use this site, you agree to the use of cookies."

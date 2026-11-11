@@ -8,6 +8,39 @@
   --tertiary-color-2: #27645d;
   --quaternary-color: #edf4ec;
   --white-color: #ffffff;
+  --sold-out-color: #a01414;
+  /* Gumbi (tri razine) — zadano prate osnovne boje */
+  --btn1-bg: var(--primary-color);
+  --btn1-hover: var(--primary-color-2);
+  --btn1-text: var(--white-color);
+  --btn2-bg: var(--secondary-color);
+  --btn2-hover: var(--secondary-color-2);
+  --btn2-text: var(--white-color);
+  --btn3-bg: var(--secondary-color);
+  --btn3-hover: var(--secondary-color-2);
+  --btn3-text: var(--white-color);
+  /* Teme sekcija: Tema 1 svijetla, Tema 2 naglašena */
+  --t1-bg: #f8f9fa;
+  --t1-text: var(--tertiary-color);
+  --t1-heading: var(--t1-text);
+  --t1-link: var(--tertiary-color);
+  --t1-link-hover: var(--tertiary-color-2);
+  --t2-bg: var(--primary-color);
+  --t2-text: var(--white-color);
+  --t2-heading: var(--t2-text);
+  --t2-link: var(--t2-text);
+  --t2-link-hover: var(--quaternary-color);
+  /* Zaglavlje i podnožje */
+  --nav-bg: var(--quaternary-color);
+  --nav-text: var(--tertiary-color);
+  --nav-hover: var(--tertiary-color-2);
+  --footer-bg: var(--quaternary-color);
+  --footer-text: var(--tertiary-color);
+  /* Kartice sadnica */
+  --card-bg: #ffffff;
+  --card-text: var(--tertiary-color);
+  --cookie-bg: #102a27;
+  --cookie-text: #ffffff;
   --contact-fs: 24px;
 }
 
@@ -17,7 +50,7 @@ body {
 }
 
 .navbar {
-  background: var(--quaternary-color);
+  background: var(--nav-bg);
 }
 
 .banner {
@@ -41,35 +74,71 @@ body {
 }
 
 .btn-primary {
-  color: var(--white-color);
-  border-color: var(--white-color);
-  background: var(--primary-color);
+  color: var(--btn1-text);
+  border-color: var(--btn1-text);
+  background: var(--btn1-bg);
 }
 
 .btn-secondary {
-  color: var(--white-color);
-  border-color: var(--white-color);
-  background: var(--secondary-color);
+  color: var(--btn2-text);
+  border-color: var(--btn2-text);
+  background: var(--btn2-bg);
 }
 
 .btn-primary:hover {
-  color: var(--white-color);
-  border-color: var(--white-color);
-  background: var(--primary-color-2);
+  color: var(--btn1-text);
+  border-color: var(--btn1-text);
+  background: var(--btn1-hover);
 }
 
 .btn-secondary:hover {
-  color: var(--white-color);
-  border-color: var(--white-color);
-  background: var(--secondary-color-2);
+  color: var(--btn2-text);
+  border-color: var(--btn2-text);
+  background: var(--btn2-hover);
 }
 
+.btn.btn-product-details, .btn.btn-tertiary {
+  color: var(--btn3-text);
+  border-color: var(--btn3-text);
+  background: var(--btn3-bg);
+}
+
+.btn.btn-product-details:hover, .btn.btn-tertiary:hover {
+  color: var(--btn3-text);
+  border-color: var(--btn3-text);
+  background: var(--btn3-hover);
+}
+
+/* ---------- Teme sekcija (klasu .sec-tN dodjeljuje generator: par/nepar prema vidljivim sekcijama) ---------- */
+.sec-t1 { --sec-line: var(--t1-text); background: var(--t1-bg); color: var(--t1-text); }
+.sec-t2 { --sec-line: var(--t2-text); background: var(--t2-bg); color: var(--t2-text); }
+
+.sec-t1 :is(.services-header, .service-header, .about-header, .ci-content h2, .gallery-header, .contact-header) {
+  color: var(--t1-heading);
+}
+.sec-t2 :is(.services-header, .service-header, .about-header, .ci-content h2, .gallery-header, .contact-header) {
+  color: var(--t2-heading);
+}
+
+.sec-t1 a:not(.btn) { color: var(--t1-link); }
+.sec-t1 a:not(.btn):hover { color: var(--t1-link-hover); }
+.sec-t2 a:not(.btn) { color: var(--t2-link); }
+.sec-t2 a:not(.btn):hover { color: var(--t2-link-hover); }
+
+/* Karusel "O nama" na naglašenoj pozadini: svijetle kontrole */
+.sec-t2 .carousel-dark .carousel-control-prev-icon,
+.sec-t2 .carousel-dark .carousel-control-next-icon { filter: none; }
+.sec-t2 .carousel-dark .carousel-indicators [data-bs-target] { background-color: var(--t2-text); }
+
+/* Prozor sadnice ne nasljeđuje boje teme sekcije */
+.modal-content { color: var(--bs-body-color); }
+
 .nav-link {
-  color: var(--tertiary-color);
+  color: var(--nav-text);
 }
 
 .nav-link:hover {
-  color: var(--tertiary-color-2);
+  color: var(--nav-hover);
 }
 
 .products {
@@ -124,7 +193,7 @@ body {
 }
 
 .vd {
-  color: var(--tertiary-color);
+  color: var(--nav-text);
 }
 
 .product {
@@ -148,10 +217,44 @@ body {
   transform: scale(1.05, 1.05);
 }
 
+.product-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: var(--bs-card-inner-border-radius);
+  border-top-right-radius: var(--bs-card-inner-border-radius);
+}
+
+.sold-out-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.sold-out-overlay span {
+  color: #fff;
+  background: var(--sold-out-color);
+  padding: .4rem 1.2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  transform: rotate(-12deg);
+  border: 2px solid #fff;
+}
+
+.product-card.sold-out .card-img-top {
+  filter: grayscale(0.7);
+}
+
 .card-img-top {
   aspect-ratio: 4/5;
   width: 100%;
   display: block;
+  object-fit: cover; /* slike drugog omjera se obrežu umjesto da se razvuku */
 }
 
 .card-body {
@@ -159,9 +262,14 @@ body {
   flex-direction: column;
 }
 
+.product-card {
+  background: var(--card-bg);
+  color: var(--card-text);
+}
+
 .card-text {
   text-align: center;
-  color: var(--tertiary-color);
+  color: var(--card-text);
 }
 
 .card-price {
@@ -188,6 +296,7 @@ body {
   margin: auto;
   width: 70%;
   aspect-ratio: 4/5;
+  object-fit: cover;
 }
 
 .preview-product-description {
@@ -204,9 +313,7 @@ body {
 }
 
 .services {
-  background: var(--primary-color);
   padding: 4em 0px;
-  color: var(--white-color);
   text-align: center;
   scroll-margin-top: 3.5rem;
 }
@@ -233,7 +340,6 @@ body {
 }
 
 .contact {
-  color: var(--tertiary-color);
   padding: 2rem 0;
   scroll-margin-top: 3.5rem;
 }
@@ -264,17 +370,12 @@ body {
 }
 
 .contact a {
-  color: var(--tertiary-color);
   text-decoration: none;
 }
 
-.contact a:hover {
-  color: var(--tertiary-color-2);
-}
-
 .footer {
-  color: var(--tertiary-color);
-  background-color: var(--quaternary-color);
+  color: var(--footer-text);
+  background-color: var(--footer-bg);
 }
 
 .footer p {
@@ -286,18 +387,16 @@ body {
 .contact-right > iframe {
   width: 100% !important;
   height: 100% !important;
-  border: 1px solid var(--tertiary-color) !important;
+  border: 1px solid var(--sec-line) !important;
 }
 
 .about {
-  color: var(--tertiary-color);
   padding-top: 3rem;
   padding-bottom: 3rem;
   scroll-margin-top: 3.5rem;
 }
 
 .about-header {
-  color: var(--tertiary-color);
   margin-bottom: 2rem;
   text-transform: uppercase;
   text-align: center;
@@ -370,8 +469,6 @@ body {
 }
 
 .gallery-container {
-  background: var(--primary-color);
-  color: var(--white-color);
   padding: 2rem 0;
   scroll-margin-top: 3.5rem;
 }
@@ -391,7 +488,7 @@ body {
 .gallery a {
   display: block;
   overflow: hidden;
-  border: 1px solid var(--white-color);
+  border: 1px solid var(--sec-line);
 }
 
 .gallery img {
@@ -411,8 +508,8 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: var(--tertiary-color);
-  color: white;
+  background: var(--cookie-bg);
+  color: var(--cookie-text);
   padding: 15px;
   text-align: center;
   z-index: 9999;

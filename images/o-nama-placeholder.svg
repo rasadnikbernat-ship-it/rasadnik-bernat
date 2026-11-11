@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="O nama">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f1d8"/>
+      <stop offset="1" stop-color="#cfe3c9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <circle cx="300" cy="90" r="34" fill="#f3d36b" opacity="0.9"/>
+  <!-- brežuljci -->
+  <path d="M0 210 Q90 150 180 200 T400 185 V300 H0Z" fill="#7fae7c"/>
+  <path d="M0 240 Q110 195 220 235 T400 220 V300 H0Z" fill="#4f8a55"/>
+  <!-- šuma -->
+  <g fill="#244f28">
+    <path d="M70 225 L95 160 L120 225Z"/><path d="M82 195 L95 150 L108 195Z" fill="#2f6b35"/>
+    <path d="M130 235 L160 150 L190 235Z"/><path d="M142 200 L160 140 L178 200Z" fill="#2f6b35"/>
+    <path d="M215 232 L240 170 L265 232Z"/><path d="M225 205 L240 160 L255 205Z" fill="#2f6b35"/>
+    <path d="M280 238 L300 190 L320 238Z"/>
+  </g>
+  <g stroke="#4d3722" stroke-width="5" stroke-linecap="round">
+    <path d="M95 225 V240"/><path d="M160 235 V252"/><path d="M240 232 V248"/><path d="M300 238 V252"/>
+  </g>
+  <!-- tlo -->
+  <path d="M0 262 Q120 245 230 260 T400 255 V300 H0Z" fill="#5f452b"/>
+</svg>

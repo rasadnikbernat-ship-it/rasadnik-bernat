@@ -10,7 +10,8 @@
     "priceList": "Cjenik"
   },
   "product": {
-    "details": "Opširnije"
+    "details": "Opširnije",
+    "soldOut": "Rasprodano"
   },
   "carousel": {
     "control": {
@@ -18,6 +19,8 @@
       "next": "Sljedeća"
     }
   },
+  "footer": "© 2026 RasadnikBernat.",
+  "cookieAccept": "OK",
   "followUs": "Pratite nas:",
   "comingSoon": "Uskoro...",
   "cookie-banner": "Ova web stranica koristi nužne kolačiće i Google Maps za ispravan prikaz sadržaja. Korištenjem stranice pristajete na uporabu kolačića."

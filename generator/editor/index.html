@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasadnik Bernat — Editor sadržaja</title>
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  <header class="ed-header">
+    <div class="ed-brand">
+      <strong>Rasadnik Bernat</strong> <span>editor sadržaja</span>
+    </div>
+    <div class="ed-actions">
+      <span id="status" class="ed-status" aria-live="polite"></span>
+
+      <div class="action-group" role="group" aria-label="Excel">
+        <button id="btnExportXlsx" class="btn btn-ghost" type="button" title="Izvezi sve podatke (sadnice, usluge, o nama, kontakt) u data.xlsx">⬇ Izvezi</button>
+        <label class="btn btn-ghost xlsx-import-label" title="Uvezi data.xlsx (zamjenjuje sve podatke)">
+          ⬆ Uvezi
+          <input type="file" id="importXlsxFile" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="file-input-hidden">
+        </label>
+      </div>
+
+      <span class="action-divider" aria-hidden="true"></span>
+
+      <div class="action-group" role="group" aria-label="Sadržaj">
+        <button id="btnSave" class="btn btn-save">Spremi</button>
+        <button id="btnBuild" class="btn btn-build">Spremi i generiraj web</button>
+        <button id="btnPreview" class="btn btn-preview">Pregledaj ↗</button>
+      </div>
+
+      <span class="action-divider" aria-hidden="true"></span>
+
+      <div class="action-group" role="group" aria-label="Objava">
+        <button id="btnPublish" class="btn btn-publish" title="Generiraj web i objavi promjene (git push)">⬆ Objavi</button>
+        <button id="btnDiscard" class="btn btn-discard" title="Vrati sve neobjavljene promjene na zadnje objavljeno stanje">↺ Odbaci promjene</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ed-tabs">
+    <button class="tab active" data-tab="products">Sadnice</button>
+    <button class="tab" data-tab="services">Usluge</button>
+    <button class="tab" data-tab="about">O nama</button>
+    <button class="tab" data-tab="gallery">Galerija</button>
+    <button class="tab" data-tab="contact">Kontakt</button>
+    <button class="tab" data-tab="settings">Postavke</button>
+  </nav>
+
+  <main class="ed-main">
+    <!-- ===================== TAB: Sadnice (products) ===================== -->
+    <section id="tab-products" class="tab-panel active">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Sadnice</h2>
+            <p class="hint">Svaki proizvod ima hrvatski i engleski naziv/opis. Slike se učitavaju u folder proizvoda (images/products/…). Prvi folder = galerija slika proizvoda.</p>
+          </div>
+          <div class="toolbar-right">
+            <button id="btnAddProduct" class="btn btn-primary btn-small" type="button">+ Dodaj sadnicu</button>
+          </div>
+        </div>
+        <div id="productsList" class="cards"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Usluge (services) ===================== -->
+    <section id="tab-services" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Usluge</h2>
+            <p class="hint">Usluge s hrvatskim i engleskim nazivom/opisom te jednom slikom (images/services/).</p>
+          </div>
+          <button id="btnAddService" class="btn btn-primary btn-small" type="button">+ Dodaj uslugu</button>
+        </div>
+        <div id="servicesList" class="cards"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: O nama (about) ===================== -->
+    <section id="tab-about" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>O nama</h2>
+            <p class="hint">Sekcije "O nama" (npr. Tko smo mi, Vizija, Misija) s hrvatskim i engleskim naslovom/opisom te slikom (images/about/).</p>
+          </div>
+          <button id="btnAddAbout" class="btn btn-primary btn-small" type="button">+ Dodaj sekciju</button>
+        </div>
+        <div id="aboutList" class="cards"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Galerija (gallery) ===================== -->
+    <section id="tab-gallery" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Galerija</h2>
+            <p class="hint">Slike i videi galerije. Thumbnaili se automatski generiraju pri generiranju weba. Videi: samo mp4 ili webm; preporučeno do nekoliko desetaka MB (GitHub odbija datoteke veće od 100 MB).</p>
+          </div>
+          <label class="btn btn-primary btn-small gallery-upload-label">
+            + Dodaj slike / videe
+            <input type="file" id="galleryUploadFile" accept="image/*,video/*" multiple class="file-input-hidden">
+          </label>
+        </div>
+        <div id="galleryGrid" class="gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Kontakt (contact) ===================== -->
+    <section id="tab-contact" class="tab-panel">
+      <div class="content">
+        <div class="list-toolbar">
+          <div>
+            <h2>Kontakt</h2>
+            <p class="hint">Kontakt podaci i Google Maps. "Map iframe" je HTML kôd ugradnje karte (Google Maps → Dijeli → Ugradi kartu).</p>
+          </div>
+        </div>
+        <form id="contactForm" class="config-form">
+          <fieldset class="config-group">
+            <legend>Podaci</legend>
+            <div class="grid">
+              <label>Telefon<input type="text" id="ctNumber"></label>
+              <label>Email<input type="text" id="ctMail"></label>
+              <label class="full">Adresa<input type="text" id="ctAddress"></label>
+              <label class="full">Google Maps link (mapUrl)<input type="text" id="ctMapUrl"></label>
+              <label class="full">Google Maps iframe (mapIframe)
+                <textarea id="ctMapIframe" rows="4" class="config-textarea" placeholder="&lt;iframe src=...&gt;&lt;/iframe&gt;"></textarea>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset class="config-group">
+            <legend>Društvene mreže</legend>
+            <p class="hint">Ikone u retku "Pratite nas". Redoslijed na webu je isti kao ovdje. Bez ijedne poveznice redak se ne prikazuje.</p>
+            <div id="ctSocialList" class="social-list"></div>
+            <button type="button" id="ctSocialAdd" class="btn btn-small">+ Dodaj poveznicu</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================== TAB: Postavke (config.json) ===================== -->
+    <section id="tab-settings" class="tab-panel">
+      <div class="content">
+        <div class="subtabs" role="tablist">
+          <button type="button" class="subtab active" data-subtab="pricelist" role="tab">Cjenik</button>
+          <button type="button" class="subtab" data-subtab="texts" role="tab">Naslovnica i tekstovi</button>
+          <button type="button" class="subtab" data-subtab="defaults" role="tab">Slike</button>
+          <button type="button" class="subtab" data-subtab="theme" role="tab">Izgled</button>
+          <button type="button" class="subtab" data-subtab="sections" role="tab">Sekcije</button>
+          <button type="button" class="subtab" data-subtab="seo" role="tab">Kolačići i SEO</button>
+        </div>
+
+        <div class="subpanel active" id="sub-pricelist">
+        <div class="list-toolbar">
+          <div>
+            <h2>Postavke cjenika</h2>
+            <p class="hint">Valuta i nazivi/oznake u cjeniku (PDF/XML se generiraju na hrvatskom i engleskom).</p>
+          </div>
+        </div>
+
+        <form id="configForm" class="config-form">
+          <fieldset class="config-group">
+            <legend>Općenito</legend>
+            <div class="grid">
+              <label>Valuta<input type="text" id="cfgCurrency" placeholder="€"></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="config-group">
+            <legend>Cjenik — Hrvatski</legend>
+            <div class="grid">
+              <label>Naziv datoteke (bez ekstenzije)<input type="text" id="cfgHrFileName"></label>
+              <label>Naslov cjenika<input type="text" id="cfgHrTitle"></label>
+              <label>Oznaka "Naziv proizvoda"<input type="text" id="cfgHrItemName"></label>
+              <label>Oznaka "Cijena"<input type="text" id="cfgHrItemPrice"></label>
+              <label>Tekst "cijena na upit"<input type="text" id="cfgHrItemOnRequest"></label>
+              <label>Oznaka sidrene cijene<input type="text" id="cfgHrItemAnchor"></label>
+              <label class="full">Podnožje cjenika<textarea id="cfgHrFooter" rows="3" class="config-textarea"></textarea></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="config-group">
+            <legend>Cjenik — Engleski</legend>
+            <div class="grid">
+              <label>File name (without extension)<input type="text" id="cfgEnFileName"></label>
+              <label>Price list title<input type="text" id="cfgEnTitle"></label>
+              <label>"Product Name" label<input type="text" id="cfgEnItemName"></label>
+              <label>"Price" label<input type="text" id="cfgEnItemPrice"></label>
+              <label>"Price on request" text<input type="text" id="cfgEnItemOnRequest"></label>
+              <label>Anchor price label<input type="text" id="cfgEnItemAnchor"></label>
+              <label class="full">Price list footer<textarea id="cfgEnFooter" rows="3" class="config-textarea"></textarea></label>
+            </div>
+          </fieldset>
+        </form>
+        </div>
+
+        <div class="subpanel" id="sub-texts">
+        <div class="list-toolbar">
+          <div>
+            <h2>Naslovnica i tekstovi</h2>
+            <p class="hint">Tekstovi na webu na hrvatskom i engleskom. Prazno polje vraća zadani tekst. Sadnice, usluge i "O nama" uređuju se u svojim tabovima.</p>
+          </div>
+        </div>
+        <div id="siteBannerBox" class="site-banner-box"></div>
+        <div id="siteTextsBox" class="site-texts"></div>
+        </div>
+
+        <div class="subpanel" id="sub-sections">
+        <div class="list-toolbar">
+          <div>
+            <h2>Sekcije stranice</h2>
+            <p class="hint">Redoslijed i vidljivost sekcija na webu. Skrivena sekcija nestaje i s izbornika.</p>
+          </div>
+        </div>
+        <div id="siteSectionsBox" class="site-sections"></div>
+        </div>
+
+        <div class="subpanel" id="sub-seo">
+        <div class="list-toolbar">
+          <div>
+            <h2>Kolačići i SEO</h2>
+            <p class="hint">Poruka o kolačićima (boje su u tabu "Izgled") te naslov i opis stranice koji se prikazuju u pretraživačima.</p>
+          </div>
+        </div>
+        <div id="siteSeoBox" class="site-texts"></div>
+        </div>
+
+        <div class="subpanel" id="sub-defaults">
+        <div class="list-toolbar">
+          <div>
+            <h2>Slike</h2>
+            <p class="hint">Logo, ikona stranice i naslovna slika te zadane slike za stavke bez vlastite. Promjena se primjenjuje odmah; na webu je vidljiva nakon generiranja.</p>
+          </div>
+        </div>
+        <div id="defaultImagesBox" class="default-images"></div>
+        </div>
+
+        <div class="subpanel" id="sub-theme">
+        <div class="list-toolbar">
+          <div>
+            <h2>Izgled weba</h2>
+            <p class="hint">Boje i font cijelog weba. Promjene se spremaju gumbom "Spremi" i na webu su vidljive nakon generiranja. Pregled ispod odmah prikazuje promjene.</p>
+          </div>
+          <div class="theme-actions">
+            <button type="button" class="btn btn-outline" id="themeRestoreBaseline" title="Vrati izgled na početnu verziju (zapamćenu)">↶ Vrati na početnu verziju</button>
+            <button type="button" class="btn btn-outline" id="themeSetBaseline" title="Trenutni izgled postaje nova početna verzija">★ Zapamti ovo kao početnu</button>
+            <button type="button" class="btn btn-outline" id="themeResetAll" title="Izvorne boje i font weba">Tvornički zadano</button>
+          </div>
+        </div>
+        <div id="themeBox" class="theme-box"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== MODAL: Sidrena cijena ===================== -->
+  <div class="modal-overlay" id="modalAnchor" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalAnchorTitle">
+      <div class="modal-head">
+        <h3 id="modalAnchorTitle">Sidrena cijena</h3>
+        <button type="button" class="modal-close" data-close aria-label="Zatvori">✕</button>
+      </div>
+      <form id="anchorForm" class="modal-body">
+        <p class="hint" style="margin-bottom:0.75rem;">Sidrena ("cijena na dan…") je zaključana i prema zadanom jednaka redovnoj cijeni dok je ovdje ne promijeniš.</p>
+        <div class="grid">
+          <label class="full">Iznos (€)
+            <input type="text" id="anchorPriceInput" placeholder="npr. 5 ili prazno">
+          </label>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-save" data-close>Odustani</button>
+          <button type="submit" class="btn btn-primary">Spremi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: Image preview / promjena ===================== -->
+  <div class="modal-overlay" id="modalImage" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalImageTitle">
+      <div class="modal-head">
+        <h3 id="modalImageTitle">Slika</h3>
+        <button type="button" class="modal-close" data-close aria-label="Zatvori">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="image-modal-preview-wrap">
+          <img id="imageModalPreview" class="image-modal-preview" alt="Pregled slike">
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-save" data-close>Zatvori</button>
+          <label class="btn btn-primary image-modal-change">
+            Promijeni sliku
+            <input type="file" id="imageModalFile" accept="image/*" class="file-input-hidden">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: Galerija lightbox ===================== -->
+  <div class="modal-overlay" id="modalGallery" hidden>
+    <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="modalGalleryTitle">
+      <div class="modal-head">
+        <h3 id="modalGalleryTitle">Pregled</h3>
+        <button type="button" class="modal-close" data-close aria-label="Zatvori">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="image-modal-preview-wrap">
+          <img id="galleryModalPreview" class="image-modal-preview" alt="Pregled slike">
+          <video id="galleryModalVideo" class="image-modal-preview" controls preload="metadata" hidden></video>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-save" data-close>Zatvori</button>
+          <button type="button" id="galleryModalDelete" class="btn btn-danger">Obriši</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="editor.js"></script>
+</body>
+</html>

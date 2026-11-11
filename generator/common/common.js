@@ -5,7 +5,7 @@ const templatesDir = path.join(__dirname, './templates');
 
 async function mapCommonTemplates(html) {
   const templates = await getTemplates();
-  templates.forEach(template => html = html.replaceAll(`{{${template.name}}}`, template.html));
+  templates.forEach(template => html = html.replaceAll(`{{${template.name}}}`, () => template.html));
   return html;
 }
 

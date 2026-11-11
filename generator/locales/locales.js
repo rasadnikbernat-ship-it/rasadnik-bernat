@@ -3,6 +3,7 @@ const path = require('node:path');
 const { v4: uuidv4 } = require('uuid');
 const enLocale = require('./en.json');
 const hrLocale = require('./hr.json');
+const { applyTextOverrides, bannerLocales } = require('../common/site');
 const config = require('../../config.json');
 
 const localesDirPath = path.join(__dirname, '../js');
@@ -10,8 +11,13 @@ const localeKeys = ['name', 'description', 'title'];
 
 async function createLocales(data) {
   const localesFromConfig = getLocalesFromConfig();
-  let en = { ...enLocale, ...localesFromConfig.en };
-  let hr = { ...hrLocale, ...localesFromConfig.hr };
+  // Korisnički tekstovi iz editora (config.site.texts) prepisuju zadane iz locales/*.json.
+  let en = applyTextOverrides({ ...enLocale, ...localesFromConfig.en }, 'en', config.site);
+  let hr = applyTextOverrides({ ...hrLocale, ...localesFromConfig.hr }, 'hr', config.site);
+  // Nazivi vlastitih gumba na naslovnici (banner.b0, ...)
+  const bl = bannerLocales(config.site);
+  en = { ...en, ...bl.en };
+  hr = { ...hr, ...bl.hr };
   Object.values(data).forEach(item => {
     en = { ...en, ...getLocale(item).en };
     hr = { ...hr, ...getLocale(item).hr };
@@ -50,6 +56,10 @@ function getLocale(data) {
       }
     }
     const localeKey = item.id || uuidv4();
+    // Prazan engleski tekst -> hrvatski (inače bi se na EN prikazao prazan naziv/opis).
+    Object.keys(_hr).forEach((k) => {
+      if (_en[k] === undefined || _en[k] === null || String(_en[k]).trim() === '') _en[k] = _hr[k];
+    });
     en = { ...en, [localeKey]: _en };
     hr = { ...hr, [localeKey]: { ..._en, ..._hr } };
   });
